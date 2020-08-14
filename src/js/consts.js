@@ -46,6 +46,7 @@ export const componentNames = keyMirror(
     'FREE_DRAWING',
     'LINE',
     'TEXT',
+    'ERASE',
     'ICON',
     'FILTER',
     'SHAPE'
@@ -94,6 +95,7 @@ export const commandNames = {
     'ADD_SHAPE': 'addShape',
     'CHANGE_SHAPE': 'changeShape',
     'ADD_TEXT': 'addText',
+    'ADD_ERASE': 'addErase',
     'CHANGE_TEXT': 'changeText',
     'CHANGE_TEXT_STYLE': 'changeTextStyle',
     'ADD_IMAGE_OBJECT': 'addImageObject',
@@ -118,6 +120,7 @@ export const eventNames = {
     ICON_CREATE_RESIZE: 'iconCreateResize',
     ICON_CREATE_END: 'iconCreateEnd',
     ADD_TEXT: 'addText',
+    ADD_ERASE: 'addErase',
     ADD_OBJECT: 'addObject',
     ADD_OBJECT_AFTER: 'addObjectAfter',
     MOUSE_DOWN: 'mousedown',
@@ -140,6 +143,7 @@ export const drawingModes = keyMirror(
     'FREE_DRAWING',
     'LINE_DRAWING',
     'TEXT',
+    'ERASE',
     'SHAPE'
 );
 

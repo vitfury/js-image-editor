@@ -19,6 +19,7 @@ export default {
             text: this._textAction(),
             mask: this._maskAction(),
             draw: this._drawAction(),
+            erase: this._eraseAction(),
             icon: this._iconAction(),
             filter: this._filterAction()
         };
@@ -239,6 +240,14 @@ export default {
                 this.setBrush({
                     color
                 });
+            }
+        }, this._commonAction());
+    },
+
+    _eraseAction() {
+        return extend({
+            setDrawMode: (type, settings) => {
+                this.startDrawingMode('ERASE', settings);
             }
         }, this._commonAction());
     },
@@ -481,6 +490,18 @@ export default {
                     this.changeCursor('default');
                 });
             },
+            addErase: pos => {
+                const {
+                    fontSize,
+                } = this.ui.erase;
+
+                this.addErase({
+                    position: pos.originPosition,
+                    styles: {fontSize}
+                }).then(() => {
+                    this.changeCursor('default');
+                });
+            },
             addObjectAfter: obj => {
                 if (['rect', 'circle', 'triangle'].indexOf(obj.type) > -1) {
                     this.ui.shape.setMaxStrokeValue(Math.min(obj.width, obj.height));
@@ -524,6 +545,9 @@ export default {
                 switch (menu) {
                     case 'text':
                         this._changeActivateMode('TEXT');
+                        break;
+                    case 'erase':
+                        this._changeActivateMode('ERASE');
                         break;
                     case 'crop':
                         this.startDrawingMode('CROPPER');

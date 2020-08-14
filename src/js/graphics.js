@@ -11,6 +11,7 @@ import Rotation from './component/rotation';
 import FreeDrawing from './component/freeDrawing';
 import Line from './component/line';
 import Text from './component/text';
+import Erase from './component/erase';
 import Icon from './component/icon';
 import Filter from './component/filter';
 import Shape from './component/shape';
@@ -19,6 +20,7 @@ import FreeDrawingMode from './drawingMode/freeDrawing';
 import LineDrawingMode from './drawingMode/lineDrawing';
 import ShapeDrawingMode from './drawingMode/shape';
 import TextDrawingMode from './drawingMode/text';
+import EraseDrawingMode from './drawingMode/erase';
 import {getProperties, includes, isShape, Promise} from './util';
 import {componentNames as components, eventNames as events, drawingModes, fObjectOptions} from './consts';
 
@@ -873,6 +875,7 @@ class Graphics {
         this._register(this._drawingModeMap, new LineDrawingMode());
         this._register(this._drawingModeMap, new ShapeDrawingMode());
         this._register(this._drawingModeMap, new TextDrawingMode());
+        this._register(this._drawingModeMap, new EraseDrawingMode());
     }
 
     /**
@@ -887,6 +890,7 @@ class Graphics {
         this._register(this._componentMap, new FreeDrawing(this));
         this._register(this._componentMap, new Line(this));
         this._register(this._componentMap, new Text(this));
+        this._register(this._componentMap, new Erase(this));
         this._register(this._componentMap, new Icon(this));
         this._register(this._componentMap, new Filter(this));
         this._register(this._componentMap, new Shape(this));

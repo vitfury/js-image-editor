@@ -21,6 +21,7 @@ const {
     OBJECT_ROTATED,
     OBJECT_ADDED,
     ADD_TEXT,
+    ADD_ERASE,
     ADD_OBJECT,
     TEXT_EDITING,
     TEXT_CHANGED,
@@ -210,6 +211,7 @@ class ImageEditor {
             objectAdded: this._onObjectAdded.bind(this),
             createdPath: this._onCreatedPath,
             addText: this._onAddText.bind(this),
+            addErase: this._onAddErase.bind(this),
             addObject: this._onAddObject.bind(this),
             textEditing: this._onTextEditing.bind(this),
             textChanged: this._onTextChanged.bind(this),
@@ -309,6 +311,7 @@ class ImageEditor {
             [OBJECT_ACTIVATED]: this._handlers.objectActivated,
             [OBJECT_ADDED]: this._handlers.objectAdded,
             [ADD_TEXT]: this._handlers.addText,
+            [ADD_ERASE]: this._handlers.addErase,
             [ADD_OBJECT]: this._handlers.addObject,
             [TEXT_EDITING]: this._handlers.textEditing,
             [TEXT_CHANGED]: this._handlers.textChanged,
@@ -1074,6 +1077,11 @@ class ImageEditor {
         return this.execute(commands.ADD_TEXT, text, options);
     }
 
+    addErase(options) {
+        options = options || {};
+        return this.execute(commands.ADD_ERASE, options);
+    }
+
     /**
      * Change contents of selected text object on image
      * @param {number} id - object id
@@ -1193,6 +1201,29 @@ class ImageEditor {
          * });
          */
         this.fire(events.ADD_TEXT, {
+            originPosition: event.originPosition,
+            clientPosition: event.clientPosition
+        });
+    }
+
+    _onAddErase(event) {
+        /**
+         * The event when 'ERASE' drawing mode is enabled and click non-object area.
+         * @event ImageEditor#addErase
+         * @param {Object} pos
+         *  @param {Object} pos.originPosition - Current position on origin canvas
+         *      @param {Number} pos.originPosition.x - x
+         *      @param {Number} pos.originPosition.y - y
+         *  @param {Object} pos.clientPosition - Current position on client area
+         *      @param {Number} pos.clientPosition.x - x
+         *      @param {Number} pos.clientPosition.y - y
+         * @example
+         * imageEditor.on('addErase', function(pos) {
+         *     console.log('text position on canvas: ' + pos.originPosition);
+         *     console.log('text position on brwoser: ' + pos.clientPosition);
+         * });
+         */
+        this.fire(events.ADD_ERASE, {
             originPosition: event.originPosition,
             clientPosition: event.clientPosition
         });

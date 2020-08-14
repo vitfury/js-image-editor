@@ -5,13 +5,13 @@
 import commandFactory from '../factory/command';
 import {Promise} from '../util';
 import {componentNames, commandNames, rejectMessages} from '../consts';
-const {TEXT} = componentNames;
+const {ERASE} = componentNames;
 
 const command = {
-    name: commandNames.ADD_TEXT,
+    name: commandNames.ADD_ERASE,
 
     /**
-     * Add a text object
+     * Add an erase object
      * @param {Graphics} graphics - Graphics instance
      * @param {string} text - Initial input text
      * @param {Object} [options] Options for text styles
@@ -26,20 +26,8 @@ const command = {
      *     @param {{x: number, y: number}} [options.position] - Initial position
      * @returns {Promise}
      */
-    execute(graphics, text, options) {
-
-        options = Object.assign(options, {styles: {
-            strokeLineCap: 'round',
-            strokeDashArray: [10, 2],
-            stroke: '#fff',
-            strokeWidth: 50,
-            fontSize: 100,
-            fontFamily: 'Monaco',
-            fill: '#000',
-            paintFirst: 'stroke'
-        }});
-
-        const textComp = graphics.getComponent(TEXT);
+    execute(graphics, options) {
+        const eraseComp = graphics.getComponent(ERASE);
 
         if (this.undoData.object) {
             const undoObject = this.undoData.object;
@@ -54,11 +42,11 @@ const command = {
             });
         }
 
-        return textComp.add(text, options).then(objectProps => {
+        return eraseComp.add(options).then(objectProps => {
             const {id} = objectProps;
-            const textObject = graphics.getObject(id);
+            const eraseObject = graphics.getObject(id);
 
-            this.undoData.object = textObject;
+            this.undoData.object = eraseObject;
 
             return objectProps;
         });
