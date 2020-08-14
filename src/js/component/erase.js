@@ -69,7 +69,7 @@ class Erase extends Component {
         return new Promise(resolve => {
             const canvas = this.getCanvas();
 
-            const newPath = new fabric.Path('M 0 0 L 200 100 L 170 200 z');
+            const newartem = new fabric.Path('M 0 0 L 200 100 L 170 200 z');
             newPath.set({
                 nameType: 'eraser',
                 left: options.position.x,
