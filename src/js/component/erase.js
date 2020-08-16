@@ -40,10 +40,22 @@ class Erase extends Component {
     start() {
         const canvas = this.getCanvas();
         canvas.selection = false;
-        canvas.defaultCursor = 'crosshair';
+        canvas.defaultCursor = 'pointer';
         canvas.on({
             'mouse:down': this._listeners.mousedown
         });
+    }
+
+    setBrush(setting) {
+        const brush = this.getCanvas().freeDrawingBrush;
+
+        setting = setting || {};
+        this.width = setting.width || this.width;
+        if (setting.color) {
+            this.oColor = new fabric.Color(setting.color);
+        }
+        brush.width = this.width;
+        brush.color = this.oColor.toRgba();
     }
 
     /**
@@ -52,7 +64,7 @@ class Erase extends Component {
     end() {
         const canvas = this.getCanvas();
         canvas.selection = true;
-        canvas.defaultCursor = 'default';
+        canvas.defaultCursor = 'pointer';
         canvas.off({
             'mouse:down': this._listeners.mousedown,
         });
@@ -67,7 +79,7 @@ class Erase extends Component {
     add(options) {
         return new Promise(resolve => {
             const canvas = this.getCanvas();
-            const newPath = new fabric.Path('M 0 0 L 200 100 L 170 200 z');
+            const newPath = new fabric.Path('M100 40C195 40 195 180 100 180M100 180C5 180 5 40 100 40');
             newPath.set({
                 nameType: 'eraser',
                 left: options.position.x,
@@ -140,5 +152,6 @@ class Erase extends Component {
         });
     }
 }
+
 
 export default Erase;
