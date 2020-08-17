@@ -6,7 +6,7 @@ import fabric from 'fabric';
 import Component from '../interface/component';
 import {eventNames as events, componentNames} from '../consts';
 import {Promise} from '../util';
-import snippet from "tui-code-snippet";
+import snippet from 'tui-code-snippet';
 
 /**
  * Erase
@@ -32,7 +32,6 @@ class Erase extends Component {
          * @type {number}
          */
         this._ratio = 1;
-        this.width = 12;
     }
 
     /**
@@ -42,21 +41,26 @@ class Erase extends Component {
         const canvas = this.getCanvas();
         canvas.defaultCursor = 'pointer';
         canvas.on({
-            'mouse:down': this._listeners.mousedown
+            'mouse:down': this._listeners.mousedown,'object:selected': this._listeners.select
         });
         canvas.selection = false;
-
     }
 
     /**
      * End input text mode
      */
-
-
     end() {
         const canvas = this.getCanvas();
         canvas.defaultCursor = 'pointer';
         canvas.isDrawingMode = false;
+
+        canvas.off({
+            'mouse:down': this._listeners.mousedown,
+            'object:selected': this._listeners.select,
+            'before:selection:cleared': this._listeners.selectClear,
+            'object:scaling': this._listeners.scaling,
+            'text:editing': this._listeners.modify
+        });
     }
 
     /**
@@ -65,6 +69,7 @@ class Erase extends Component {
      *     @param {{x: number, y: number}} [options.position] - Initial position
      * @returns {Promise}
      */
+    
     add(options) {
         return new Promise(resolve => {
             const canvas = this.getCanvas();
@@ -141,6 +146,4 @@ class Erase extends Component {
         });
     }
 }
-
-
 export default Erase;
