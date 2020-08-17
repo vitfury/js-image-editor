@@ -19,12 +19,7 @@ export default class Erase extends Submenu {
             templateHtml,
             usageStatistics
         });
-        this._els = {
-            textRange: new Range({
-                slider: this.selector('.tie-text-range'),
-                input: this.selector('.tie-text-range-value')
-            }, defaultTextRangeValus)
-        };
+       
     }
 
     /**

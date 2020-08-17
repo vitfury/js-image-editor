@@ -44,6 +44,7 @@ class Erase extends Component {
         canvas.on({
             'mouse:down': this._listeners.mousedown
         });
+        
     }
     /**
      * End input text mode
