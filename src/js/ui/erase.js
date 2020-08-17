@@ -19,7 +19,6 @@ export default class Erase extends Submenu {
             templateHtml,
             usageStatistics
         });
-       
     }
 
     /**
