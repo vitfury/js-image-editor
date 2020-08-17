@@ -32,6 +32,7 @@ class Erase extends Component {
          * @type {number}
          */
         this._ratio = 1;
+        this.width = 12;
     }
 
     /**
@@ -39,23 +40,22 @@ class Erase extends Component {
      */
     start() {
         const canvas = this.getCanvas();
-        canvas.selection = false;
         canvas.defaultCursor = 'pointer';
-        canvas.on({
-            'mouse:down': this._listeners.mousedown
-        });
+        canvas.isDrawingMode = 1;
+        canvas.freeDrawingBrush.width = 10;
+        
     }
+
     /**
      * End input text mode
      */
-    
+
+
     end() {
         const canvas = this.getCanvas();
-        canvas.selection = true;
         canvas.defaultCursor = 'pointer';
-        canvas.off({
-            'mouse:down': this._listeners.mousedown,
-        });
+        canvas.isDrawingMode = false;
+      
     }
 
     /**
