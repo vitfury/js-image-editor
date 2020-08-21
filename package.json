@@ -1,3 +1,4 @@
+
 {
   "name": "tui-image-editor",
   "author": "NHN FE Development Lab <dl_javascript@nhn.com>",
@@ -72,6 +73,7 @@
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
+    
   },
   "scripts": {
     "test": "karma start --no-single-run",

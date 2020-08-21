@@ -24,6 +24,7 @@ class FreeDrawingMode extends DrawingMode {
     start(graphics, options) {
         const freeDrawing = graphics.getComponent(components.FREE_DRAWING);
         freeDrawing.start(options);
+        freeDrawingCursor = 'none';
     }
 
     /**

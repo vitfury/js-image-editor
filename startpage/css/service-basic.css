@@ -68,6 +68,7 @@
 }
 .tui-image-editor {
     height: 500px;
+    background: red;
 }
 .tui-image-editor-canvas-container {
     margin: 0 auto;

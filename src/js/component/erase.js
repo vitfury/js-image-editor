@@ -38,6 +38,7 @@ class Erase extends Component {
      * Start input text mode
      */
     start() {
+        
         const canvas = this.getCanvas();
         canvas.defaultCursor = 'pointer';
         canvas.on({
@@ -80,7 +81,9 @@ class Erase extends Component {
                 top: options.position.y,
                 globalCompositeOperation: 'destination-out',
                 selectable: false,
-                evented: false
+                evented: false,
+                originX: 'center', 
+                originY: 'center'
             });
 
             canvas.add(newPath);

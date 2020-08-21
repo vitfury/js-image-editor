@@ -14,6 +14,7 @@ import {componentNames} from '../consts';
  * @ignore
  */
 class FreeDrawing extends Component {
+   
     constructor(graphics) {
         super(componentNames.FREE_DRAWING, graphics);
 
@@ -39,6 +40,7 @@ class FreeDrawing extends Component {
 
         canvas.isDrawingMode = true;
         this.setBrush(setting);
+        
     }
 
     /**
