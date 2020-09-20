@@ -538,3 +538,20 @@ hr {
 .flexstart {
   font-size: 2em;
 }
+
+.fl_upld{width:300px;}
+#fl_inp{display:none;}
+.fl_upld label{
+cursor:pointer;
+background:rgb(137, 207, 23);
+border-radius:3px;
+padding:10px 25px;
+color:#fff;
+font-weight:bold;
+text-align: center;
+margin-top: 50px;
+}
+.fl_upld label:hover{background:#fc0;}
+#fl_nm{
+margin-top:20px;
+color:#f00;}
