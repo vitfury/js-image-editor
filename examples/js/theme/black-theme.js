@@ -1,5 +1,5 @@
-var blackTheme = {
-    'common.bi.image': 'https://uicdn.toast.com/toastui/img/tui-image-editor-bi.png',
+let blackTheme = {
+    'common.bi.image': 'http://i.piccy.info/i9/573457146b200d1b5622cdbdc7b004b1/1600600061/5983/1397030/tui_image_editor_bi.png',
     'common.bisize.width': '251px',
     'common.bisize.height': '21px',
     'common.backgroundImage': 'none',
