@@ -8,6 +8,7 @@ import {eventNames as events, componentNames} from '../consts';
 import {Promise} from '../util';
 import snippet from 'tui-code-snippet';
 
+
 /**
  * Erase
  * @class Erase
@@ -40,19 +41,22 @@ class Erase extends Component {
     start() {
         
         const canvas = this.getCanvas();
-        canvas.defaultCursor = 'pointer';
+        
         canvas.on({
             'mouse:down': this._listeners.mousedown,'object:selected': this._listeners.select
         });
-        canvas.selection = false;
+        canvas.isDrawingMode = 0;
+        // eslint-disable-next-line no-undef
+        console.log('1');
     }
+
+
 
     /**
      * End input text mode
      */
     end() {
         const canvas = this.getCanvas();
-        canvas.defaultCursor = 'pointer';
         canvas.isDrawingMode = false;
 
         canvas.off({
@@ -62,6 +66,7 @@ class Erase extends Component {
             'object:scaling': this._listeners.scaling,
             'text:editing': this._listeners.modify
         });
+        console.log('1');
     }
 
     /**

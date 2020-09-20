@@ -20,9 +20,9 @@ class EraseDrawingMode extends DrawingMode {
     * @param {Graphics} graphics - Graphics instance
     * @override
     */
-    start(graphics) {
+    start(graphics, options) {
         const erase = graphics.getComponent(components.ERASE);
-        erase.start();
+        erase.start(options);
     }
 
     /**

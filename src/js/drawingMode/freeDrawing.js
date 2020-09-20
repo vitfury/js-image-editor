@@ -5,6 +5,8 @@
 import DrawingMode from '../interface/drawingMode';
 import {drawingModes, componentNames as components} from '../consts';
 
+
+
 /**
  * FreeDrawingMode class
  * @class
@@ -24,7 +26,6 @@ class FreeDrawingMode extends DrawingMode {
     start(graphics, options) {
         const freeDrawing = graphics.getComponent(components.FREE_DRAWING);
         freeDrawing.start(options);
-        freeDrawingCursor = 'none';
     }
 
     /**
