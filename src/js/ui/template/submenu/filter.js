@@ -54,20 +54,7 @@ export default ({locale}) => (`
             <div></div>
         </li>
         <li class="tui-image-editor-submenu-align">
-            <div class="tui-image-editor-checkbox-group tui-image-editor-disabled" style="margin-bottom: 7px;">
-                <div class="tui-image-editor-checkbox-wrap">
-                    <div class="tui-image-editor-checkbox">
-                        <label>
-                            <input type="checkbox" class="tie-remove-white">
-                            <span>${locale.localize('Remove White')}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="tui-image-editor-newline tui-image-editor-range-wrap short">
-                    <label>${locale.localize('Distance')}</label>
-                    <div class="tie-removewhite-distance-range"></div>
-                </div>
-            </div>
+            
             <div class="tui-image-editor-checkbox-group tui-image-editor-disabled">
                 <div class="tui-image-editor-checkbox">
                     <label>
@@ -90,37 +77,22 @@ export default ({locale}) => (`
                     <div class="tie-noise-range"></div>
                 </div>
             </div>
+            <div class="tui-image-editor-checkbox-group tui-image-editor-disabled">
+            <div class="tui-image-editor-checkbox">
+                <label>
+                    <input type="checkbox" class="tie-pixelate">
+                    <span>${locale.localize('Pixelate')}</span>
+                </label>
+            </div>
+            <div class="tui-image-editor-range-wrap short">
+                <div class="tie-pixelate-range"></div>
+            </div> 
+        </div>
         </li>
         <li class="tui-image-editor-partition only-left-right">
             <div></div>
         </li>
-        <li class="tui-image-editor-submenu-align">
-            <div class="tui-image-editor-checkbox-group tui-image-editor-disabled">
-                <div class="tui-image-editor-checkbox">
-                    <label>
-                        <input type="checkbox" class="tie-pixelate">
-                        <span>${locale.localize('Pixelate')}</span>
-                    </label>
-                </div>
-                <div class="tui-image-editor-range-wrap short">
-                    <div class="tie-pixelate-range"></div>
-                </div>
-            </div>
-            <div class="tui-image-editor-checkbox-group tui-image-editor-disabled">
-                <div class="tui-image-editor-newline tui-image-editor-checkbox-wrap">
-                    <div class="tui-image-editor-checkbox">
-                        <label>
-                            <input type="checkbox" class="tie-color-filter">
-                            <span>${locale.localize('Color Filter')}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="tui-image-editor-newline tui-image-editor-range-wrap short">
-                    <label>${locale.localize('Threshold')}</label>
-                    <div class="tie-colorfilter-threshole-range"></div>
-                </div>
-            </div>
-        </li>
+        
         <li class="tui-image-editor-partition">
             <div></div>
         </li>

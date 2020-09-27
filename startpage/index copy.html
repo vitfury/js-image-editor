@@ -62,9 +62,39 @@
       <div class="row centered">
         <div class="col-lg-8 col-lg-offset-2">
           <div class="uploadimage">
-          <a  href="../examples/example01-includeUi.html">  <button class="buttonUpload"><h1>Upload image here</h1>
-              <h2>and wait for a magic</h2></button>
-            </a>
+            <!-- <h1>Upload image here</h1>
+              <h2>and wait for a magic</h2>
+            <input name="myFile" type="file" class="buttonUpload"> -->
+
+            <!-- <div class="fl_upld">
+              <label><input id="fl_inp" type="file" name="file">Upload image here and wait for a magic</label>
+              </div>    -->
+              <form name="uploader" enctype="multipart/form-data" method="POST">
+                Отправить этот файл: <input name="userfile" type="file" />
+                <button type="submit" name="submit">Загрузить</button>
+            </form>
+            <script type="text/javascript">
+            $("form[name='uploader']").submit(function(e) {
+                var formData = new FormData($(this)[0]);
+        
+                $.ajax({
+                    url: 'file.php',
+                    type: "POST",
+                    data: formData,
+                    async: false,
+                    success: function (msg) {
+                        alert(msg);
+                    },
+                    error: function(msg) {
+                        alert('Ошибка!');
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+                e.preventDefault();
+            });
+            </script>
           </div>
           
         </div>

@@ -16,11 +16,9 @@ const FILTER_OPTIONS = [
     'blur',
     'sharpen',
     'emboss',
-    'remove-white',
     'brightness',
     'noise',
     'pixelate',
-    'color-filter',
     'tint',
     'multiply',
     'blend'
@@ -142,9 +140,6 @@ class Filter extends Submenu {
 
             filterCheckElement.addEventListener('change', this.eventHandler[filterNameCamelCase]);
         });
-
-        this._els.removewhiteDistanceRange.on('change', changeFilterStateForRange('removeWhite'));
-        this._els.colorfilterThresholeRange.on('change', changeFilterStateForRange('colorFilter'));
         this._els.pixelateRange.on('change', changeFilterStateForRange('pixelate'));
         this._els.noiseRange.on('change', changeFilterStateForRange('noise'));
         this._els.brightnessRange.on('change', changeFilterStateForRange('brightness'));
@@ -187,11 +182,7 @@ class Filter extends Submenu {
      * @private
      */
     _setFilterState(filterName, options) { // eslint-disable-line
-        if (filterName === 'colorFilter') {
-            this._els.colorfilterThresholeRange.value = options.distance;
-        } else if (filterName === 'removeWhite') {
-            this._els.removewhiteDistanceRange.value = options.distance;
-        } else if (filterName === 'pixelate') {
+        if (filterName === 'pixelate') {
             this._els.pixelateRange.value = options.blocksize;
         } else if (filterName === 'brightness') {
             this._els.brightnessRange.value = options.brightness;
@@ -304,11 +295,7 @@ class Filter extends Submenu {
      * @private
      */
     _makeControlElement() {
-        this._els = {
-            removewhiteDistanceRange: new Range(
-                {slider: this.selector('.tie-removewhite-distance-range')},
-                FILTER_RANGE.removewhiteDistanceRange
-            ),
+        this._els = {     
             brightnessRange: new Range(
                 {slider: this.selector('.tie-brightness-range')},
                 FILTER_RANGE.brightnessRange
@@ -320,10 +307,6 @@ class Filter extends Submenu {
             pixelateRange: new Range(
                 {slider: this.selector('.tie-pixelate-range')},
                 FILTER_RANGE.pixelateRange
-            ),
-            colorfilterThresholeRange: new Range(
-                {slider: this.selector('.tie-colorfilter-threshole-range')},
-                FILTER_RANGE.colorfilterThresholeRange
             ),
             filterTintColor: new Colorpicker(
                 this.selector('.tie-filter-tint-color'), '#03bd9e', this.toggleDirection, this.usageStatistics
