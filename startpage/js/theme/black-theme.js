@@ -40,7 +40,6 @@ var blackTheme = {
     'submenu.iconSize.height': '32px',
 
     // submenu primary color
-    'submenu.backgroundColor': '#1e1e1e',
     'submenu.partition.color': '#3c3c3c',
 
     // submenu labels

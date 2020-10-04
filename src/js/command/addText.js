@@ -32,9 +32,9 @@ const command = {
             strokeLineCap: 'round',
             strokeDashArray: [10, 2],
             stroke: '#fff',
-            strokeWidth: 50,
-            fontSize: 100,
-            fontFamily: 'Monaco',
+            strokeWidth: 30,
+            fontSize: 40,
+            fontFamily: 'Arial',
             fill: '#000',
             paintFirst: 'stroke'
         }});

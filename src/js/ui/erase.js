@@ -3,6 +3,7 @@ import Range from './tools/range';
 import Submenu from './submenuBase';
 import templateHtml from './template/submenu/erase';
 import {defaultTextRangeValus} from '../consts';
+import {defaultDrawRangeValus} from '../consts';
 
 /**
  * Crop ui class
@@ -19,6 +20,17 @@ export default class Erase extends Submenu {
             templateHtml,
             usageStatistics
         });
+
+        this._els = {
+            lineSelectButton: this.selector('.tie-draw-line-select-button'),
+            eraseRange: new Range({
+                slider: this.selector('.tie-erase-range'),
+                input: this.selector('.tie-erase-range-value')
+            }, defaultDrawRangeValus)
+        };
+
+        this.type = null;
+        // this.width = this._els.drawRange.value;
     }
 
     /**
@@ -36,7 +48,10 @@ export default class Erase extends Submenu {
      *   @param {Function} actions.changeTextStyle - change text style
      */
     addEvent(actions) {
+     
         this.actions = actions;
+        this._els.eraseRange.on('change', this._changeEraseRange.bind(this));
+       
     }
 
     /**
@@ -44,7 +59,6 @@ export default class Erase extends Submenu {
      * @private
      */
     _removeEvent() {
-        const {setTextEffect, setTextAlign} = this.eventHandler;
         this._els.textRange.off();
     }
 
@@ -52,14 +66,17 @@ export default class Erase extends Submenu {
      * Returns the menu to its default state.
      */
     changeStandbyMode() {
-        this.actions.stopDrawingMode();
+        this.type = null;
     }
 
     /**
      * Executed when the menu starts.
      */
     changeStartMode() {
+        this.changeStandbyMode();
+        console.log("1");
         this.actions.modeChange('erase');
+        
     }
 
     /**
@@ -97,9 +114,13 @@ export default class Erase extends Submenu {
      * @param {boolean} isLast - Is last change
      * @private
      */
-    _changeTextRnageHandler(value, isLast) {
+    _changeTextRangeHandler(value, isLast) {
         this.actions.changeTextStyle({
             fontSize: value
         }, !isLast);
+    }
+
+    _changeEraseRange(value) {
+        this.width = value;
     }
 }
