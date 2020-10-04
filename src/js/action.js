@@ -492,15 +492,12 @@ export default {
             },
             addErase: pos => {
                 const {
-                    fontSize,
                     width,
                 } = this.ui.erase;
 
                 this.addErase({
                     position: pos.originPosition,
                     width: width
-                }).then(() => {
-                    this.changeCursor('default');
                 });
             },
             addObjectAfter: obj => {

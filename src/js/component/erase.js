@@ -47,7 +47,6 @@ class Erase extends Component {
         });
         canvas.isDrawingMode = 0;
         // eslint-disable-next-line no-undef
-        console.log('1');
     }
 
 
@@ -66,7 +65,6 @@ class Erase extends Component {
             'object:scaling': this._listeners.scaling,
             'text:editing': this._listeners.modify
         });
-        console.log('1');
     }
 
     /**
@@ -76,10 +74,22 @@ class Erase extends Component {
      * @returns {Promise}
      */
 
+
     add(options) {
+        // eslint-disable-next-line no-console
+        // console.log(options.width);
+
+        if (typeof options.width === "undefined") {
+            options.width = 30;
+        }
+
+
         return new Promise(resolve => {
+            this._isSelected = false;
             const canvas = this.getCanvas();
-            const newPath = new fabric.Path('M36.564 77.704c-7.692-.568-14.86-3.32-20.944-8.032-2.244-1.74-4.8-4.288-6.592-6.56-3.864-4.892-6.512-10.748-7.612-16.812-.432-2.364-.564-3.7-.608-6.296-.06-3.24.184-5.848.804-8.772 2.364-11.064 9.524-20.556 19.568-25.944 3.804-2.036 8.216-3.488 12.44-4.1 2.18-.316 2.908-.36 5.596-.368 2.624 0 3.156.032 5.224.3 6.784.876 13.356 3.68 18.8 8.012 1.728 1.376 3.856 3.432 5.296 5.108 4.68 5.452 7.816 12.328 8.836 19.392.316 2.152.36 2.888.36 5.648 0 3.22-.144 4.852-.688 7.56-1.256 6.316-4.064 12.144-8.308 17.252-.892 1.072-3.6 3.776-4.68 4.676-6.456 5.356-13.86 8.34-22.192 8.944-1.056.072-4.244.072-5.304-.008z');
+            // canvas.selection = false;
+
+            const newPath = new fabric.Path(`M 100 100 a ${options.width} ${options.width} 0 1 0 0.00001 0`);
             newPath.set({
                 nameType: 'eraser',
                 left: options.position.x,
@@ -88,7 +98,11 @@ class Erase extends Component {
                 selectable: false,
                 evented: false,
                 originX: 'center',
-                originY: 'center'
+                originY: 'center',
+                hasControls: false,
+                hasBorders: false,
+                lockMovementX: true,
+                lockMovementY: true
             });
 
             canvas.add(newPath);
@@ -102,12 +116,6 @@ class Erase extends Component {
      * @private
      */
     _onFabricMouseDown(fEvent) {
-        const obj = fEvent.target;
-
-        if (obj && !obj.isType('erase')) {
-            return;
-        }
-
         this._fireAddErase(fEvent);
     }
 
@@ -117,22 +125,19 @@ class Erase extends Component {
      * @private
      */
     _fireAddErase(fEvent) {
-        const obj = fEvent.target;
         const e = fEvent.e || {};
         const originPointer = this.getCanvas().getPointer(e);
 
-        if (!obj) {
-            this.fire(events.ADD_ERASE, {
-                originPosition: {
-                    x: originPointer.x,
-                    y: originPointer.y
-                },
-                clientPosition: {
-                    x: e.clientX || 0,
-                    y: e.clientY || 0
-                }
-            });
-        }
+        this.fire(events.ADD_ERASE, {
+            originPosition: {
+                x: originPointer.x,
+                y: originPointer.y
+            },
+            clientPosition: {
+                x: e.clientX || 0,
+                y: e.clientY || 0
+            }
+        });
     }
 
     setStyle(activeObj, styleObj) {
