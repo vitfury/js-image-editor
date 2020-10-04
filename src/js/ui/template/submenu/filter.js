@@ -32,20 +32,8 @@ export default ({locale}) => (`
                 </div>
                 <div class="tui-image-editor-checkbox">
                     <label>
-                        <input type="checkbox" class="tie-blur">
-                        <span>${locale.localize('Blur')}</span>
-                    </label>
-                </div>
-                <div class="tui-image-editor-checkbox">
-                    <label>
                         <input type="checkbox" class="tie-sharpen">
                         <span>${locale.localize('Sharpen')}</span>
-                    </label>
-                </div>
-                <div class="tui-image-editor-checkbox">
-                    <label>
-                        <input type="checkbox" class="tie-emboss">
-                        <span>${locale.localize('Emboss')}</span>
                     </label>
                 </div>
             </div>
