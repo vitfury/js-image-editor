@@ -25,7 +25,9 @@ class Erase extends Component {
          * @type {Object}
          */
         this._listeners = {
-            mousedown: this._onFabricMouseDown.bind(this)
+            mousedown: this._onFabricMouseDown.bind(this),
+            mouseup: this._onFabricMouseUp.bind(this),
+            mousemove: this._onFabricMouseMove.bind(this)
         };
 
         /**
@@ -39,50 +41,32 @@ class Erase extends Component {
      * Start input text mode
      */
     start() {
-
         const canvas = this.getCanvas();
-
         canvas.on({
-            'mouse:down': this._listeners.mousedown,'object:selected': this._listeners.select
+            'mouse:down': this._listeners.mousedown,
+            'mouse:up': this._listeners.mouseup,
+            'mouse:move': this._listeners.mousemove,
         });
-        canvas.isDrawingMode = 0;
-        // eslint-disable-next-line no-undef
     }
-
-
 
     /**
      * End input text mode
      */
     end() {
         const canvas = this.getCanvas();
-        canvas.isDrawingMode = false;
 
         canvas.off({
             'mouse:down': this._listeners.mousedown,
-            'object:selected': this._listeners.select,
-            'before:selection:cleared': this._listeners.selectClear,
-            'object:scaling': this._listeners.scaling,
-            'text:editing': this._listeners.modify
+            'mouse:move': this._listeners.mousemove,
+            'mouse:up': this._listeners.mouseup,
         });
     }
 
-    /**
-     * Erase something on the canvas
-     * @param {Object} options - Options for generating text
-     *     @param {{x: number, y: number}} [options.position] - Initial position
-     * @returns {Promise}
-     */
-
-
     add(options) {
-        // eslint-disable-next-line no-console
-        // console.log(options.width);
 
         if (typeof options.width === "undefined") {
             options.width = 30;
         }
-
 
         return new Promise(resolve => {
             this._isSelected = false;
@@ -105,7 +89,10 @@ class Erase extends Component {
                 lockMovementY: true
             });
 
-            canvas.add(newPath);
+            if(typeof this.draw !== "undefined" && this.draw) {
+                canvas.add(newPath);
+            }
+
             resolve(this.graphics.createObjectProperties(newPath));
         });
     }
@@ -116,14 +103,18 @@ class Erase extends Component {
      * @private
      */
     _onFabricMouseDown(fEvent) {
-        this._fireAddErase(fEvent);
+        this.draw = true;
+        this.graphics.getCanvas().selection = false;
+    }
+    _onFabricMouseUp(fEvent) {
+        this.draw = false;
+        this.graphics.getCanvas().selection = true;
     }
 
-    /**
-     * Fire 'addErase' event if object is not selected.
-     * @param {fabric.Event} fEvent - Current mousedown event on selected object
-     * @private
-     */
+    _onFabricMouseMove(fEvent) {
+        this._fireDrawErase(fEvent);
+    }
+
     _fireAddErase(fEvent) {
         const e = fEvent.e || {};
         const originPointer = this.getCanvas().getPointer(e);
@@ -140,22 +131,19 @@ class Erase extends Component {
         });
     }
 
-    setStyle(activeObj, styleObj) {
-        return new Promise(resolve => {
-            snippet.forEach(styleObj, (val, key) => {
-                if (activeObj[key] === val && key !== 'fontSize') {
-                    styleObj[key] = resetStyles[key] || '';
-                }
-            }, this);
+    _fireDrawErase(fEvent) {
+        const e = fEvent.e || {};
+        const originPointer = this.getCanvas().getPointer(e);
 
-            if ('textDecoration' in styleObj) {
-                snippet.extend(styleObj, this._getTextDecorationAdaptObject(styleObj.textDecoration));
+        this.fire(events.DRAW_ERASE, {
+            originPosition: {
+                x: originPointer.x,
+                y: originPointer.y
+            },
+            clientPosition: {
+                x: e.clientX || 0,
+                y: e.clientY || 0
             }
-
-            activeObj.set(styleObj);
-
-            this.getCanvas().renderAll();
-            resolve();
         });
     }
 }

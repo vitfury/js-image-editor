@@ -491,11 +491,23 @@ export default {
                 });
             },
             addErase: pos => {
+                this.changeCursor('default');
                 const {
                     width,
                 } = this.ui.erase;
 
                 this.addErase({
+                    position: pos.originPosition,
+                    width: width
+                })
+            },
+            drawErase: pos => {
+                this.changeCursor('crosshair');
+                const {
+                    width,
+                } = this.ui.erase;
+
+                this.drawErase({
                     position: pos.originPosition,
                     width: width
                 });

@@ -18,13 +18,5 @@ export default ({locale, makeSvgIcon}) => (`
         <li class="tui-image-editor-partition only-left-right">
             <div></div>
         </li>
-        <li class="tie-mask-apply tui-image-editor-newline apply" style="margin-top: 22px;margin-bottom: 5px">
-            <div class="tui-image-editor-button apply">
-                ${makeSvgIcon(['normal', 'active'], 'apply')}
-                <label>
-                    ${locale.localize('Apply')}
-                </label>
-            </div>
-        </li>
     </ul>
 `);

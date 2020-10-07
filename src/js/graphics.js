@@ -643,7 +643,7 @@ class Graphics {
      * Set states of current drawing shape
      * @param {string} type - Shape type (ex: 'rect', 'circle', 'triangle')
      * @param {Object} [options] - Shape options
-     *      @param {(ShapeFillOption | string)} [options.fill] - {@link ShapeFillOption} or 
+     *      @param {(ShapeFillOption | string)} [options.fill] - {@link ShapeFillOption} or
      *        Shape foreground color (ex: '#fff', 'transparent')
      *      @param {string} [options.stoke] - Shape outline color
      *      @param {number} [options.strokeWidth] - Shape outline width
@@ -673,6 +673,9 @@ class Graphics {
      */
     changeCursor(cursorType) {
         const canvas = this.getCanvas();
+        if(cursorType === canvas.defaultCursor) {
+            return;
+        }
         canvas.defaultCursor = cursorType;
         canvas.renderAll();
     }
