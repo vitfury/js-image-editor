@@ -9,6 +9,7 @@ import './js/command/addObject';
 import './js/command/addShape';
 import './js/command/addText';
 import './js/command/addErase';
+import './js/command/drawErase';
 import './js/command/applyFilter';
 import './js/command/changeIconColor';
 import './js/command/changeShape';

@@ -22,6 +22,7 @@ const {
     OBJECT_ADDED,
     ADD_TEXT,
     ADD_ERASE,
+    DRAW_ERASE,
     ADD_OBJECT,
     TEXT_EDITING,
     TEXT_CHANGED,
@@ -94,8 +95,8 @@ const {
  * @typedef {object} ShapeFillOption - fill option of shape
  * @property {string} type - fill type ('color' or 'filter')
  * @property {Array.<ShapeFillFilterOption>} [filter] - {@link ShapeFilterOption} List.
- *  only applies to filter types 
- *  (ex: \[\{pixelate: 20\}, \{blur: 0.3\}\]) 
+ *  only applies to filter types
+ *  (ex: \[\{pixelate: 20\}, \{blur: 0.3\}\])
  * @property {string} [color] - Shape foreground color (ex: '#fff', 'transparent')
  */
 
@@ -212,6 +213,7 @@ class ImageEditor {
             createdPath: this._onCreatedPath,
             addText: this._onAddText.bind(this),
             addErase: this._onAddErase.bind(this),
+            drawErase: this._onDrawErase.bind(this),
             addObject: this._onAddObject.bind(this),
             textEditing: this._onTextEditing.bind(this),
             textChanged: this._onTextChanged.bind(this),
@@ -312,6 +314,7 @@ class ImageEditor {
             [OBJECT_ADDED]: this._handlers.objectAdded,
             [ADD_TEXT]: this._handlers.addText,
             [ADD_ERASE]: this._handlers.addErase,
+            [DRAW_ERASE]: this._handlers.drawErase,
             [ADD_OBJECT]: this._handlers.addObject,
             [TEXT_EDITING]: this._handlers.textEditing,
             [TEXT_CHANGED]: this._handlers.textChanged,
@@ -888,7 +891,7 @@ class ImageEditor {
      * Set states of current drawing shape
      * @param {string} type - Shape type (ex: 'rect', 'circle', 'triangle')
      * @param {Object} [options] - Shape options
-     *      @param {(ShapeFillOption | string)} [options.fill] - {@link ShapeFillOption} or 
+     *      @param {(ShapeFillOption | string)} [options.fill] - {@link ShapeFillOption} or
      *        Shape foreground color (ex: '#fff', 'transparent')
      *      @param {string} [options.stoke] - Shape outline color
      *      @param {number} [options.strokeWidth] - Shape outline width
@@ -941,7 +944,7 @@ class ImageEditor {
      * Add shape
      * @param {string} type - Shape type (ex: 'rect', 'circle', 'triangle')
      * @param {Object} options - Shape options
-     *      @param {(ShapeFillOption | string)} [options.fill] - {@link ShapeFillOption} or 
+     *      @param {(ShapeFillOption | string)} [options.fill] - {@link ShapeFillOption} or
      *        Shape foreground color (ex: '#fff', 'transparent')
      *      @param {string} [options.stroke] - Shape outline color
      *      @param {number} [options.strokeWidth] - Shape outline width
@@ -1002,7 +1005,7 @@ class ImageEditor {
      * Change shape
      * @param {number} id - object id
      * @param {Object} options - Shape options
-     *      @param {(ShapeFillOption | string)} [options.fill] - {@link ShapeFillOption} or 
+     *      @param {(ShapeFillOption | string)} [options.fill] - {@link ShapeFillOption} or
      *        Shape foreground color (ex: '#fff', 'transparent')
      *      @param {string} [options.stroke] - Shape outline color
      *      @param {number} [options.strokeWidth] - Shape outline width
@@ -1078,6 +1081,11 @@ class ImageEditor {
     }
 
     addErase(options) {
+        options = options || {};
+        return this.execute(commands.ADD_ERASE, options);
+    }
+
+    drawErase(options) {
         options = options || {};
         return this.execute(commands.ADD_ERASE, options);
     }
@@ -1224,6 +1232,13 @@ class ImageEditor {
          * });
          */
         this.fire(events.ADD_ERASE, {
+            originPosition: event.originPosition,
+            clientPosition: event.clientPosition
+        });
+    }
+
+    _onDrawErase(event) {
+        this.fire(events.DRAW_ERASE, {
             originPosition: event.originPosition,
             clientPosition: event.clientPosition
         });
