@@ -246,8 +246,8 @@ export default {
 
     _eraseAction() {
         return extend({
-            setDrawMode: (type, settings) => {
-                this.startDrawingMode('ERASE', settings);
+            setEraserWidth: (width) => {
+                this.setEraserWidth(width);
             }
         }, this._commonAction());
     },
@@ -491,23 +491,11 @@ export default {
                 });
             },
             addErase: pos => {
-                this.changeCursor('default');
                 const {
                     width,
                 } = this.ui.erase;
 
                 this.addErase({
-                    position: pos.originPosition,
-                    width: width
-                })
-            },
-            drawErase: pos => {
-                this.changeCursor('crosshair');
-                const {
-                    width,
-                } = this.ui.erase;
-
-                this.drawErase({
                     position: pos.originPosition,
                     width: width
                 });

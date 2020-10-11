@@ -30,6 +30,7 @@ export default class Erase extends Submenu {
         };
 
         this.type = null;
+        // this.width = this._els.drawRange.value;
     }
 
     /**
@@ -63,11 +64,21 @@ export default class Erase extends Submenu {
      * Executed when the menu starts.
      */
     changeStartMode() {
+        this.changeStandbyMode();
         this.actions.modeChange('erase');
-        this.actions.changeSelectableAll(false);
+    }
+
+    changeStandbyMode() {
+        this.type = null;
+        this.actions.stopDrawingMode();
+        this.actions.changeSelectableAll(true);
     }
 
     _changeEraseRange(value) {
-        this.width = value;
+        this.setEraserWidth(value);
+    }
+
+    setEraserWidth(width) {
+        this.actions.setEraserWidth(width);
     }
 }

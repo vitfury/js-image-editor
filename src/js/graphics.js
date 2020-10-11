@@ -415,6 +415,14 @@ class Graphics {
         return !!drawingModeInstance;
     }
 
+    setEraserWidth(width) {
+        this.stopDrawingMode(); // тут может быть проблема
+        const drawingModeInstance = this._getDrawingModeInstance('ERASE');
+        if (drawingModeInstance && drawingModeInstance.start) {
+            drawingModeInstance.start(this, width);
+        }
+    }
+
     /**
      * Stop the current drawing mode and back to the 'NORMAL' mode
      */
