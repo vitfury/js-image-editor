@@ -3,8 +3,8 @@
  * @returns {string}
  */
 export default ({locale}) => (`
-    <ul class="tui-image-editor-submenu-item">
-        <li class="tui-image-editor-submenu-align">
+    <ul class="tui-image-editor-submenu-item ">
+        <li class="tui-image-editor-submenu-align ">
             <div class="tui-image-editor-checkbox-wrap fixed-width">
                 <div class="tui-image-editor-checkbox">
                     <label>
