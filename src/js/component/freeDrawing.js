@@ -14,7 +14,7 @@ import {componentNames} from '../consts';
  * @ignore
  */
 class FreeDrawing extends Component {
-   
+
     constructor(graphics) {
         super(componentNames.FREE_DRAWING, graphics);
 
@@ -40,7 +40,7 @@ class FreeDrawing extends Component {
 
         canvas.isDrawingMode = true;
         this.setBrush(setting);
-        
+
     }
 
     /**
@@ -49,6 +49,9 @@ class FreeDrawing extends Component {
      */
     setBrush(setting) {
         const brush = this.getCanvas().freeDrawingBrush;
+        const canvas = this.getCanvas();
+
+        canvas.getContext().globalCompositeOperation = 'source-over';
 
         setting = setting || {};
         this.width = setting.width || this.width;

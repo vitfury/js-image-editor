@@ -21,130 +21,52 @@ class Erase extends Component {
         super(componentNames.ERASE, graphics);
 
         /**
-         * Listeners for fabric event
-         * @type {Object}
-         */
-        this._listeners = {
-            mousedown: this._onFabricMouseDown.bind(this),
-            mouseup: this._onFabricMouseUp.bind(this),
-            mousemove: this._onFabricMouseMove.bind(this)
-        };
-
-        /**
-         * Ratio of current canvas
+         * Brush width
          * @type {number}
          */
-        this._ratio = 1;
+        this.width = 30;
+
+        /**
+         * Collect all brush path elements and group it with active layer;
+         * @type {*[]}
+         */
+        window.eraserStack = [];
+
+        /**
+         * fabric.Color instance for brush color
+         * @type {fabric.Color}
+         */
+        this.oColor = new fabric.Color('rgba(0, 0, 0, 0.5)');
     }
 
-    /**
-     * Start input text mode
-     */
-    start() {
+    start(width) {
         const canvas = this.getCanvas();
-        canvas.on({
-            'mouse:down': this._listeners.mousedown,
-            'mouse:up': this._listeners.mouseup,
-            'mouse:move': this._listeners.mousemove,
+        canvas.isDrawingMode = true;
+        this.setEraser(width);
+        canvas.on('path:created', function (opt) {
+            opt.path.globalCompositeOperation = 'destination-out';
+            window.eraserStack.push(opt);
         });
     }
 
+    setEraser(width) {
+        const brush = this.getCanvas().freeDrawingBrush;
+        const canvas = this.getCanvas();
+
+        canvas.getContext().globalCompositeOperation = 'globalCompositeOperation';
+
+        this.oColor = new fabric.Color('#ffffff');
+        brush.color = this.oColor.toRgba();
+        brush.width = width || 30;
+    }
+
     /**
-     * End input text mode
+     * End free drawing mode
      */
     end() {
         const canvas = this.getCanvas();
-
-        canvas.off({
-            'mouse:down': this._listeners.mousedown,
-            'mouse:move': this._listeners.mousemove,
-            'mouse:up': this._listeners.mouseup,
-        });
-    }
-
-    add(options) {
-
-        if (typeof options.width === "undefined") {
-            options.width = 30;
-        }
-
-        return new Promise(resolve => {
-            this._isSelected = false;
-            const canvas = this.getCanvas();
-            // canvas.selection = false;
-
-            const newPath = new fabric.Path(`M 100 100 a ${options.width} ${options.width} 0 1 0 0.00001 0`);
-            newPath.set({
-                nameType: 'eraser',
-                left: options.position.x,
-                top: options.position.y,
-                globalCompositeOperation: 'destination-out',
-                selectable: false,
-                evented: false,
-                originX: 'center',
-                originY: 'center',
-                hasControls: false,
-                hasBorders: false,
-                lockMovementX: true,
-                lockMovementY: true
-            });
-
-            if(typeof this.draw !== "undefined" && this.draw) {
-                canvas.add(newPath);
-            }
-
-            resolve(this.graphics.createObjectProperties(newPath));
-        });
-    }
-
-    /**
-     * Fabric 'mousedown' event handler
-     * @param {fabric.Event} fEvent - Current mousedown event on selected object
-     * @private
-     */
-    _onFabricMouseDown(fEvent) {
-        this.draw = true;
-        this.graphics.getCanvas().selection = false;
-    }
-    _onFabricMouseUp(fEvent) {
-        this.draw = false;
-        this.graphics.getCanvas().selection = true;
-    }
-
-    _onFabricMouseMove(fEvent) {
-        this._fireDrawErase(fEvent);
-    }
-
-    _fireAddErase(fEvent) {
-        const e = fEvent.e || {};
-        const originPointer = this.getCanvas().getPointer(e);
-
-        this.fire(events.ADD_ERASE, {
-            originPosition: {
-                x: originPointer.x,
-                y: originPointer.y
-            },
-            clientPosition: {
-                x: e.clientX || 0,
-                y: e.clientY || 0
-            }
-        });
-    }
-
-    _fireDrawErase(fEvent) {
-        const e = fEvent.e || {};
-        const originPointer = this.getCanvas().getPointer(e);
-
-        this.fire(events.DRAW_ERASE, {
-            originPosition: {
-                x: originPointer.x,
-                y: originPointer.y
-            },
-            clientPosition: {
-                x: e.clientX || 0,
-                y: e.clientY || 0
-            }
-        });
+        canvas.isDrawingMode = false;
+        canvas.off('path:created');
     }
 }
 export default Erase;

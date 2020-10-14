@@ -106,6 +106,7 @@ class Icon extends Submenu {
     changeStandbyMode() {
         this.clearIconType();
         this.actions.cancelAddIcon();
+        this.actions.stopDrawingMode();
     }
 
     /**

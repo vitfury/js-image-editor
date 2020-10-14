@@ -703,6 +703,10 @@ class ImageEditor {
         return this._graphics.startDrawingMode(mode, option);
     }
 
+    setEraserWidth(width) {
+        return this._graphics.setEraserWidth(width);
+    }
+
     /**
      * Stop the current drawing mode and back to the 'NORMAL' mode
      * @example
