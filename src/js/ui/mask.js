@@ -62,6 +62,7 @@ class Mask extends Submenu {
      * @private
      */
     _loadMaskFile(event) {
+       
         let imgUrl;
 
         if (!isSupportFileApi()) {
@@ -69,14 +70,43 @@ class Mask extends Submenu {
         }
 
         const [file] = event.target.files;
-
+        
         if (file) {
+            $('#editor-progressBarDiv').show();
+
             var actions = this.actions;
             var reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function () {
                 //HERE
                 var imageBase64 = reader.result;
+                imageBase64 = imageBase64.split('base64,')[1];
+                var body = {
+
+                    dimensions: {
+                        width: 512,
+                        height: 512
+                    },
+                    image: imageBase64
+                }
+                
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/api/image/removeBackground', false);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(body));
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+                var tmpImgResponse = JSON.parse(xhr.responseText)
+                var tmpImgBase64 = tmpImgResponse.image;
+                imgUrl = 'data:image/png;base64,' + tmpImgBase64;
+                
+                // var tempResponse = xhr.responseText;
+                // var responseImg = tempResponse.split(',')[1];
+                $('#editor-progressBarDiv').hide();
+
+                // imgUrl = 'data:image/'+';base64,' + responseImg;
+                actions.loadImageFromURL(imgUrl, file);
             };
             reader.onerror = function (error) {
                 alert('Error: ', error);
