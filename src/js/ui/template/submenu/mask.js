@@ -12,6 +12,7 @@ export default ({locale, makeSvgIcon}) => (`
                     <input type="file" accept="image/*" class="tie-mask-image-file">
                     ${makeSvgIcon(['normal', 'active'], 'mask-load', true)}
                 </div>
+                <img id="uploaded-image" style="display:none" src="https://www.google.de/images/srpr/logo11w.png"/>
                 <label> ${locale.localize('Load Mask Image')} </label>
             </div>
         </li>

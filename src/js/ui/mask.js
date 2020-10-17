@@ -72,6 +72,23 @@ class Mask extends Submenu {
 
         if (file) {
             imgUrl = URL.createObjectURL(file);
+
+
+            // Convert image to base64
+            var tmpImg = document.getElementById("uploaded-image");
+            tmpImg.src=imgUrl;
+            var canvas = document.createElement("canvas");
+            canvas.width = tmpImg.width;
+            canvas.height = tmpImg.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(tmpImg, 0, 0);
+            var dataURL = canvas.toDataURL("image/png");
+
+
+            var tmpImgBase64 = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+            //tut otpravka na server
+
             this.actions.loadImageFromURL(imgUrl, file);
         }
     }
