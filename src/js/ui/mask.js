@@ -71,25 +71,16 @@ class Mask extends Submenu {
         const [file] = event.target.files;
 
         if (file) {
-            imgUrl = URL.createObjectURL(file);
-
-
-            // Convert image to base64
-            var tmpImg = document.getElementById("uploaded-image");
-            tmpImg.src=imgUrl;
-            var canvas = document.createElement("canvas");
-            canvas.width = tmpImg.width;
-            canvas.height = tmpImg.height;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(tmpImg, 0, 0);
-            var dataURL = canvas.toDataURL("image/png");
-
-
-            var tmpImgBase64 = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-
-            //tut otpravka na server
-
-            this.actions.loadImageFromURL(imgUrl, file);
+            var actions = this.actions;
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                //HERE
+                var imageBase64 = reader.result;
+            };
+            reader.onerror = function (error) {
+                alert('Error: ', error);
+            };
         }
     }
 }
