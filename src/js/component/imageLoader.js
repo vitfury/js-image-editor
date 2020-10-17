@@ -3,8 +3,13 @@
  * @fileoverview Image loader
  */
 import Component from '../interface/component';
-import {componentNames, rejectMessages} from '../consts';
-import {Promise} from '../util';
+import {
+    componentNames,
+    rejectMessages
+} from '../consts';
+import {
+    Promise
+} from '../util';
 
 const imageOption = {
     padding: 0,
@@ -30,6 +35,7 @@ class ImageLoader extends Component {
      * @returns {Promise}
      */
     load(imageName, img) {
+
         let promise;
 
         if (!imageName && !img) { // Back to the initial state, not error.
@@ -43,6 +49,7 @@ class ImageLoader extends Component {
                 resolve();
             });
         } else {
+           
             promise = this._setBackgroundImage(img).then(oImage => {
                 this.setCanvasImage(imageName, oImage);
                 this.adjustCanvasDimension();

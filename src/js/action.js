@@ -260,7 +260,7 @@ export default {
     _maskAction() {
         return extend({
             loadImageFromURL: (imgUrl, file) => (
-                this.loadImageFromURL(this.toDataURL(), 'FilterImage').then(() => {
+                this.loadImageFromURL(this.toDataURL(), 'FilterImage').then(() => {           
                     this.addImageObject(imgUrl).then(() => {
                         URL.revokeObjectURL(file);
                     });
