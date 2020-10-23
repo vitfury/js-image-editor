@@ -69,6 +69,7 @@ class Ui {
         this._initMenuEvent = false;
 
         this._makeSubMenu();
+        this._addHelpMenus();
     }
 
     /**
@@ -187,7 +188,7 @@ class Ui {
             },
             locale: {},
             menuIconPath: '',
-            menu: ['crop', 'flip', 'rotate', 'draw', 'erase', 'shape', 'icon', 'text', 'mask', 'filter'],
+            menu: ['filter','mask', 'erase', 'draw', 'text', 'icon', 'crop', 'flip', 'rotate', 'shape'],
             initMenu: '',
             uiSize: {
                 width: '100%',
@@ -232,7 +233,7 @@ class Ui {
                 usageStatistics: this.options.usageStatistics
             });
         });
-    }
+    }   //уже близко
 
     /**
      * Make primary ui dom element
@@ -281,7 +282,7 @@ class Ui {
             'load': this._selectedElement.querySelectorAll('.tui-image-editor-load-btn')
         };
 
-        this._addHelpMenus();
+        
     }
 
     /**
@@ -290,9 +291,9 @@ class Ui {
      * @private
      */
     _makeHelpMenuWithPartition() {
-        const helpMenuWithPartition = [...HELP_MENUS, ''];
-        helpMenuWithPartition.splice(3, 0, '');
-
+        const helpMenuWithPartition = [...HELP_MENUS];
+        helpMenuWithPartition.splice(0, 0, '');
+        helpMenuWithPartition.splice(4, 0, '');
         return helpMenuWithPartition;
     }
 

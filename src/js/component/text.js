@@ -19,7 +19,7 @@ const resetStyles = {
     fontStyle: 'normal',
     fontWeight: 'normal',
     textAlign: 'left',
-    underline: false
+    underline: false,
 };
 
 const DBCLICK_TIME = 500;
@@ -196,7 +196,6 @@ class Text extends Component {
             let newText = null;
             let selectionStyle = fObjectOptions.SELECTION_STYLE;
             let styles = this._defaultStyles;
-
             this._setInitPos(options.position);
 
             if (options.styles) {
@@ -207,18 +206,35 @@ class Text extends Component {
                 options.autofocus = true;
             }
 
+         
+           let fontFamilyMap = {
+                roboto: 'Roboto',
+                openSans: 'Open Sans',
+                montserrat: 'Montserrat',
+                robotoCondensed: 'Roboto Condensed',
+                sourceSansPro: 'Source Sans Pro',
+                oswald: 'Oswald',
+                merriweather: 'Merriweather',
+                NotoSansJP: 'Noto Sans JP',
+                yanoneKaffeesatz: 'Yanone Kaffeesatz',
+                Caveat: 'Caveat'
+            }
+
+            styles.fontFamily = fontFamilyMap[options.styles.fontFamily];
+            styles.strokeLineCap = 'round';
+            styles.strokeDashArray = [10, 2];
+            styles.stroke = '#fff';
+            styles.strokeWidth = 30;
+            styles.fontSize = 40;
+            styles.fill = '#000';
+            styles.paintFirst = 'stroke';
+
             newText = new fabric.IText(text, styles);
             selectionStyle = snippet.extend({}, selectionStyle, {
                 left: options.position.x,
                 top: options.position.y,
-                selectable: false,
-                evented: false,
                 originX: 'center',
-                originY: 'center',
-                hasControls: false,
-                hasBorders: false,
-                lockMovementX: true,
-                lockMovementY: true
+                originY: 'center'
             });
 
             newText.set(selectionStyle);
@@ -453,7 +469,7 @@ class Text extends Component {
     _onFabricScaling(fEvent) {
         const obj = fEvent.target;
         const scalingSize = obj.fontSize * obj.scaleY;
-
+        obj.fontFamily = Pacifico;
         obj.fontSize = scalingSize;
         obj.scaleX = 1;
         obj.scaleY = 1;

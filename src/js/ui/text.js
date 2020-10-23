@@ -29,6 +29,7 @@ export default class Text extends Submenu {
         this._els = {
             textEffectButton: this.selector('.tie-text-effect-button'),
             textAlignButton: this.selector('.tie-text-align-button'),
+            fontSelect: this.selector('.tie-text-font-select'),
             textColorpicker: new Colorpicker(
                 this.selector('.tie-text-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics
             ),
@@ -58,6 +59,7 @@ export default class Text extends Submenu {
     addEvent(actions) {
         const setTextEffect = this._setTextEffectHandler.bind(this);
         const setTextAlign = this._setTextAlignHandler.bind(this);
+        const setFontFamily = this._setFontFamilyHandler.bind(this);
 
         this.eventHandler = {
             setTextEffect,
@@ -67,6 +69,7 @@ export default class Text extends Submenu {
         this.actions = actions;
         this._els.textEffectButton.addEventListener('click', setTextEffect);
         this._els.textAlignButton.addEventListener('click', setTextAlign);
+        this._els.fontSelect.addEventListener('change', setFontFamily);
         this._els.textRange.on('change', this._changeTextRnageHandler.bind(this));
         this._els.textColorpicker.on('change', this._changeColorHandler.bind(this));
     }
@@ -116,6 +119,14 @@ export default class Text extends Submenu {
      */
     get fontSize() {
         return this._els.textRange.value;
+    }
+
+    /**
+     * Get text size
+     * @returns {string} - text size
+     */
+    get fontFamily() {
+        return this._els.fontSelect.value;
     }
 
     /**
@@ -216,6 +227,11 @@ export default class Text extends Submenu {
         }
     }
 
+
+    _setFontFamilyHandler(event) {
+        this.actions.changeTextStyle({fontFamily: event.target.value});  
+        
+    }
     /**
      * text align set handler
      * @param {number} value - range value

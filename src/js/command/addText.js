@@ -28,17 +28,6 @@ const command = {
      */
     execute(graphics, text, options) {
 
-        options = Object.assign(options, {styles: {
-            strokeLineCap: 'round',
-            strokeDashArray: [10, 2],
-            stroke: '#fff',
-            strokeWidth: 30,
-            fontSize: 40,
-            fontFamily: 'Arial',
-            fill: '#000',
-            paintFirst: 'stroke'
-        }});
-
         const textComp = graphics.getComponent(TEXT);
 
         if (this.undoData.object) {

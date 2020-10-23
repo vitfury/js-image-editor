@@ -4,8 +4,7 @@ export default ({locale, biImage, loadButtonStyle, downloadButtonStyle}) => (`
             <img src="${biImage}" />
         </div>
         <ul class="tui-image-editor-menu">
-        <div class="tui-image-editor-header-buttons">
-      
+                 
         </ul>
     
     </div>

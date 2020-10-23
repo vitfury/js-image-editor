@@ -5,6 +5,12 @@
  * @returns {string}
  */
 export default ({locale, makeSvgIcon}) => (`
+    <select class="tie-text-font-select">
+        <option value="openSans">Open Sans</option>
+        <option value="sourceSansPro">Source Sans Pro</option>
+        
+    </select>
+        
     <ul class="tui-image-editor-submenu-item">
         <li class="tie-text-effect-button">
             <div class="tui-image-editor-button bold">

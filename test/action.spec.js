@@ -405,6 +405,7 @@ describe('Ui', () => {
                 imageEditorMock.fire('objectActivated', {id: 1});
                 expect(imageEditorMock.ui.changeHelpButtonEnabled.calls.argsFor(0)).toEqual(['delete', true]);
                 expect(imageEditorMock.ui.changeHelpButtonEnabled.calls.argsFor(1)).toEqual(['deleteAll', true]);
+                
             });
 
             it('When objectActivated\'s target is cropzone, changeApplyButtonStatus should be enabled.', () => {
