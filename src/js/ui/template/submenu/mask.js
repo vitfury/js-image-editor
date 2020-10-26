@@ -12,12 +12,17 @@ export default ({locale, makeSvgIcon}) => (`
                     <input type="file" accept="image/*" class="tie-mask-image-file">
                     ${makeSvgIcon(['normal', 'active'], 'mask-load', true)}
                 </div>
-                
                 <label> ${locale.localize('Load Mask Image')} </label>
             </div>
         </li>
-        <li class="tui-image-editor-partition only-left-right">
+        <li class="tui-image-editor-partition">
             <div></div>
+        </li>
+        <li>
+            <div class="tui-image-editor-button remove-background">
+                <input type="checkbox" class="remove-background-checkbox" checked="true">
+                <label>${locale.localize('Remove Background')}</label>
+            </div>
         </li>
     </ul>
 `);
