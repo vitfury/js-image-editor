@@ -4,7 +4,7 @@ import Colorpicker from './tools/colorpicker';
 import Submenu from './submenuBase';
 import templateHtml from './template/submenu/text';
 import {defaultTextRangeValus} from '../consts';
-
+import {defaultTextOutlineRangeValus} from '../consts'
 /**
  * Crop ui class
  * @class
@@ -36,7 +36,12 @@ export default class Text extends Submenu {
             textRange: new Range({
                 slider: this.selector('.tie-text-range'),
                 input: this.selector('.tie-text-range-value')
-            }, defaultTextRangeValus)
+            }, defaultTextRangeValus),
+            
+            outlineWidth: new Range ({
+                slider: this.selector('.tie-text-outline-range'),
+                input: this.selector('.tie-text-outline-range-value')
+            }, defaultTextOutlineRangeValus)
         };
     }
 
@@ -47,7 +52,7 @@ export default class Text extends Submenu {
         this._removeEvent();
         this._els.textColorpicker.destroy();
         this._els.textRange.destroy();
-
+        this._els.outlineWidth.destroy();
         assignmentForDestroy(this);
     }
 
@@ -72,6 +77,7 @@ export default class Text extends Submenu {
         this._els.fontSelect.addEventListener('change', setFontFamily);
         this._els.textRange.on('change', this._changeTextRnageHandler.bind(this));
         this._els.textColorpicker.on('change', this._changeColorHandler.bind(this));
+        this._els.outlineWidth.on('change', this._changeTextOutlineTextHandler.bind(this));
     }
 
     /**
@@ -84,6 +90,7 @@ export default class Text extends Submenu {
         this._els.textEffectButton.removeEventListener('click', setTextEffect);
         this._els.textAlignButton.removeEventListener('click', setTextAlign);
         this._els.textRange.off();
+        this._els.outlineWidth.off();
         this._els.textColorpicker.off();
     }
 
@@ -119,14 +126,19 @@ export default class Text extends Submenu {
      */
     get fontSize() {
         return this._els.textRange.value;
+        
     }
-
+  
+    get strokeWidth() {
+        return this._els.outlineWidth.value;
+    }
     /**
      * Get text size
      * @returns {string} - text size
      */
     get fontFamily() {
         return this._els.fontSelect.value;
+        
     }
 
     /**
@@ -137,6 +149,11 @@ export default class Text extends Submenu {
         this._els.textRange.value = value;
     }
 
+    set strokeWidth(value) {
+        this._els.outlineWidth.value = value;
+    }
+
+ 
     /**
      * get font style
      * @returns {string} - font style
@@ -162,10 +179,10 @@ export default class Text extends Submenu {
     }
 
     setTextStyleStateOnAction(textStyle = {}) {
-        const {fill, fontSize, fontStyle, fontWeight, textDecoration, textAlign} = textStyle;
-
+        const {fill, fontSize, strokeWidth, fontStyle, fontWeight, textDecoration, textAlign} = textStyle;
         this.textColor = fill;
         this.fontSize = fontSize;
+        this.strokeWidth = strokeWidth;
         this.setEffactState('italic', fontStyle);
         this.setEffactState('bold', fontWeight);
         this.setEffactState('underline', textDecoration);
@@ -238,11 +255,22 @@ export default class Text extends Submenu {
      * @param {boolean} isLast - Is last change
      * @private
      */
+    _changeTextOutlineTextHandler(value, isLast) {
+       
+        this.actions.changeTextStyle( {
+            strokeWidth: value
+            
+        }, !isLast)
+    }
+   
     _changeTextRnageHandler(value, isLast) {
+        
         this.actions.changeTextStyle({
             fontSize: value
         }, !isLast);
     }
+    
+    
 
     /**
      * change color handler

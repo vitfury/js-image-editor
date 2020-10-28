@@ -243,6 +243,13 @@ export const defaultTextRangeValus = {
     value: 40
 };
 
+export const defaultTextOutlineRangeValus = {
+    realTimeEvent: true,
+    min: 0,
+    max: 100,
+    value: 10
+};
+
 export const defaultFilterRangeValus = {
     tintOpacityRange: {
         realTimeEvent: true,

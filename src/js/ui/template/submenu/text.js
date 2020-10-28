@@ -72,5 +72,10 @@ export default ({locale, makeSvgIcon}) => (`
             <div class="tie-text-range"></div>
             <input class="tie-text-range-value tui-image-editor-range-value" value="0" />
         </li>
+        <li class=" tui-image-editor-range-wrap">
+            <label class="range">${locale.localize('stroke width')}</label>
+            <div class="tie-text-outline-range"></div>
+            <input class="tie-text-outline-range-value tui-image-editor-range-value" value="0" />
+        </li>
     </ul>
 `);

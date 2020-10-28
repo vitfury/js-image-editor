@@ -55,6 +55,7 @@ const command = {
     execute(graphics, id, styles, isSilent) {
         const textComp = graphics.getComponent(TEXT);
         const targetObj = graphics.getObject(id);
+        
 
         if (!targetObj) {
             return Promise.reject(rejectMessages.noObject);
