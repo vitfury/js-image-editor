@@ -64,18 +64,17 @@ export default ({locale, makeSvgIcon}) => (`
         <li class="tui-image-editor-partition only-left-right">
             <div></div>
         </li>
-        <li class="tui-image-editor-partition">
-        <div></div>
-    </li>
-        <li class=" tui-image-editor-range-wrap">
+                <li class=" tui-image-editor-range-wrap">
             <label class="range">${locale.localize('Text size')}</label>
-            <div class="tie-text-range"></div>
+            <div class="tie-text-range text-outline-range-position"></div>
             <input class="tie-text-range-value tui-image-editor-range-value" value="0" />
         </li>
+        
         <li class=" tui-image-editor-range-wrap">
-            <label class="range">${locale.localize('stroke width')}</label>
-            <div class="tie-text-outline-range"></div>
-            <input class="tie-text-outline-range-value tui-image-editor-range-value" value="0" />
+            <label class="range">${locale.localize('Stroke width')}</label>
+            <div class="tie-text-outline-range text-outline-range-position"></div>
+            <input class="tie-text-outline-range-value  tui-image-editor-range-value" value="0" />
         </li>
+
     </ul>
 `);
