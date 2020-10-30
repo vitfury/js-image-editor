@@ -5,17 +5,15 @@
  * @returns {string}
  */
 export default ({locale, makeSvgIcon}) => (`
+    <ul style="color: white;">Font family</ul>
     <select class="tie-text-font-select">
-        <option value="openSans">Open Sans</option>
-        <option value="sourceSansPro">Source Sans Pro</option>
-        <option value="roboto">Roboto</option>
-        <option value="montserrat">Montserrat</option>
-        <option value="robotoCondensed">Roboto Condensed</option>
+        <option value="Amatic">Amatic</option>
+        <option value="GrenzeGotisch">Grenze gotisch</option>
+        <option value="DancingScript">Dancing Script</option>
+        <option value="RobotoSlab">Roboto Slab</option>
         <option value="oswald">Oswald</option>
-        <option value="merriweather">Merriweather</option>
-        <option value="NotoSansJP">Noto Sans JP</option>
-        <option value="yanoneKaffeesatz">Yanone Kaffeesatz</option>
-        <option value="Caveat">Caveat</option>
+        <option value="SyneTactile">Syne Tactile</option>
+        <option value="SyneMono">Syne mono</option>
     </select>
         
     <ul class="tui-image-editor-submenu-item">
@@ -85,5 +83,13 @@ export default ({locale, makeSvgIcon}) => (`
         <li>
         <div class="tie-text-outline-color" title="${locale.localize('Color')}"></div>
         </li>
+        
     </ul>
+    <ul style="color: white;">Stroke form</ul>
+    <select class="tie-stroke-form-select">
+        <option value="soft">Soft</option>
+        <option value="chainsaw">Chainsaw</option>
+        <option value="pixelize">Pixelize</option>
+        <option value="fishbone">Fishbone</option>
+    </select>
 `);

@@ -208,21 +208,43 @@ class Text extends Component {
 
          
            let fontFamilyMap = {
-                roboto: 'Roboto',
-                openSans: 'Open Sans',
-                montserrat: 'Montserrat',
-                robotoCondensed: 'Roboto Condensed',
-                sourceSansPro: 'Source Sans Pro',
+                Amatic: 'Amatic SC',
+                GrenzeGotisch: 'Grenze Gotisch',
+                DancingScript: 'Dancing Script',
+                RobotoSlab: 'Roboto Slab',
+                SyneMono: 'Syne Mono',
                 oswald: 'Oswald',
-                merriweather: 'Merriweather',
-                NotoSansJP: 'Noto Sans JP',
-                yanoneKaffeesatz: 'Yanone Kaffeesatz',
-                Caveat: 'Caveat'
+                SyneTactile: 'Syne Tactile',
+                // NotoSansJP: 'Noto Sans JP',
+                // yanoneKaffeesatz: 'Yanone Kaffeesatz',
+                // Caveat: 'Caveat'
             }
 
+            switch ($('.tie-stroke-form-select').val()) {
+                case 'fishbone':
+                    styles.strokeLineCap = 'butt';
+                    styles.strokeDashArray = [2,3];
+                    break;
+                case 'chainsaw':
+                    styles.strokeLineCap = 'square';
+                    styles.strokeDashArray = [1,5];
+                    break;
+                case 'pixelize':
+                    styles.strokeLineCap = 'square';
+                    styles.strokeDashArray = [0,10];
+                    break;
+                case 'soft':
+                    styles.strokeLineCap = "round";
+                    styles.strokeDashArray = [0,0];
+                    break;
+
+            }
+            //styles.strokeLineCap = 'butt'; [2,3] fishbone
+            //styles.strokeLineCap = 'square'; [1,5] chainsaw
+            //styles.strokeLineCap = 'square'; [0,10] pixelize
+            //styles.strokeLineCap = 'round'; [0,0] soft
+
             styles.fontFamily = fontFamilyMap[options.styles.fontFamily];
-            styles.strokeLineCap = 'round';
-            styles.strokeDashArray = [10, 2];
             styles.stroke = '#fff';
             styles.strokeWidth = 30;
             styles.fontSize = 40;
@@ -469,7 +491,6 @@ class Text extends Component {
     _onFabricScaling(fEvent) {
         const obj = fEvent.target;
         const scalingSize = obj.fontSize * obj.scaleY;
-        obj.fontFamily = Pacifico;
         obj.fontSize = scalingSize;
         obj.scaleX = 1;
         obj.scaleY = 1;
