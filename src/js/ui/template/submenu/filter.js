@@ -76,11 +76,7 @@ export default ({locale}) => (`
                 <div class="tie-pixelate-range"></div>
             </div> 
         </div>
-        </li>
-        <li class="tui-image-editor-partition only-left-right">
-            <div></div>
-        </li>
-        
+        </li> 
         <li class="tui-image-editor-partition">
             <div></div>
         </li>
