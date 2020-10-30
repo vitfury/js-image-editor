@@ -30,17 +30,18 @@ export default class Text extends Submenu {
             textEffectButton: this.selector('.tie-text-effect-button'),
             textAlignButton: this.selector('.tie-text-align-button'),
             fontSelect: this.selector('.tie-text-font-select'),
+            strokeType: this.selector('.tie-stroke-form-select'),
             textColorpicker: new Colorpicker(
-                this.selector('.tie-text-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics        
+                this.selector('.tie-text-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics
             ),
             textStrokepicker: new Colorpicker(
-                this.selector('.tie-text-outline-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics        
+                this.selector('.tie-text-outline-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics
             ),
             textRange: new Range({
                 slider: this.selector('.tie-text-range'),
                 input: this.selector('.tie-text-range-value')
             }, defaultTextRangeValus),
-            
+
             outlineWidth: new Range ({
                 slider: this.selector('.tie-text-outline-range'),
                 input: this.selector('.tie-text-outline-range-value')
@@ -69,6 +70,7 @@ export default class Text extends Submenu {
         const setTextEffect = this._setTextEffectHandler.bind(this);
         const setTextAlign = this._setTextAlignHandler.bind(this);
         const setFontFamily = this._setFontFamilyHandler.bind(this);
+        const setStrokeType = this._setStrokeTypeHandler.bind(this);
 
         this.eventHandler = {
             setTextEffect,
@@ -79,6 +81,7 @@ export default class Text extends Submenu {
         this._els.textEffectButton.addEventListener('click', setTextEffect);
         this._els.textAlignButton.addEventListener('click', setTextAlign);
         this._els.fontSelect.addEventListener('change', setFontFamily);
+        this._els.strokeType.addEventListener('change', setStrokeType);
         this._els.textRange.on('change', this._changeTextRnageHandler.bind(this));
         this._els.textColorpicker.on('change', this._changeColorHandler.bind(this));
         this._els.textStrokepicker.on('change', this._changeStrokeHandler.bind(this))
@@ -107,7 +110,7 @@ export default class Text extends Submenu {
         this.changeStandbyMode();
         this.actions.modeChange('text');
     }
-    
+
     changeStandbyMode() {
         this.type = null;
         this.actions.stopDrawingMode();
@@ -117,7 +120,7 @@ export default class Text extends Submenu {
     /**
      * Executed when the menu starts.
      */
-  
+
 
     set textColor(color) {
         this._els.textColorpicker.color = color;
@@ -144,9 +147,9 @@ export default class Text extends Submenu {
      */
     get fontSize() {
         return this._els.textRange.value;
-        
+
     }
-  
+
     get strokeWidth() {
         return this._els.outlineWidth.value;
     }
@@ -156,7 +159,6 @@ export default class Text extends Submenu {
      */
     get fontFamily() {
         return this._els.fontSelect.value;
-        
     }
 
     /**
@@ -171,7 +173,7 @@ export default class Text extends Submenu {
         this._els.outlineWidth.value = value;
     }
 
- 
+
     /**
      * get font style
      * @returns {string} - font style
@@ -265,9 +267,13 @@ export default class Text extends Submenu {
 
 
     _setFontFamilyHandler(event) {
-        this.actions.changeTextStyle({fontFamily: event.target.value});  
-        
+        this.actions.changeTextStyle({fontFamily: event.target.value});
     }
+
+    _setStrokeTypeHandler(event) {
+        this.actions.changeTextStyle({strokeType: event.target.value});
+    }
+
     /**
      * text align set handler
      * @param {number} value - range value
@@ -275,21 +281,21 @@ export default class Text extends Submenu {
      * @private
      */
     _changeTextOutlineTextHandler(value, isLast) {
-       
+
         this.actions.changeTextStyle( {
             strokeWidth: value
-            
+
         }, !isLast)
     }
-   
+
     _changeTextRnageHandler(value, isLast) {
-        
+
         this.actions.changeTextStyle({
             fontSize: value
         }, !isLast);
     }
-    
-    
+
+
 
     /**
      * change color handler
