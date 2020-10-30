@@ -8,7 +8,14 @@ export default ({locale, makeSvgIcon}) => (`
     <select class="tie-text-font-select">
         <option value="openSans">Open Sans</option>
         <option value="sourceSansPro">Source Sans Pro</option>
-        
+        <option value="roboto">Roboto</option>
+        <option value="montserrat">Montserrat</option>
+        <option value="robotoCondensed">Roboto Condensed</option>
+        <option value="oswald">Oswald</option>
+        <option value="merriweather">Merriweather</option>
+        <option value="NotoSansJP">Noto Sans JP</option>
+        <option value="yanoneKaffeesatz">Yanone Kaffeesatz</option>
+        <option value="Caveat">Caveat</option>
     </select>
         
     <ul class="tui-image-editor-submenu-item">
@@ -75,6 +82,8 @@ export default ({locale, makeSvgIcon}) => (`
             <div class="tie-text-outline-range text-outline-range-position"></div>
             <input class="tie-text-outline-range-value  tui-image-editor-range-value" value="0" />
         </li>
-
+        <li>
+        <div class="tie-text-outline-color" title="${locale.localize('Color')}"></div>
+        </li>
     </ul>
 `);
