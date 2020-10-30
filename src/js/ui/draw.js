@@ -4,7 +4,7 @@ import Range from './tools/range';
 import Submenu from './submenuBase';
 import templateHtml from './template/submenu/draw';
 import {defaultDrawRangeValus} from '../consts';
-const DRAW_OPACITY = 0.7;
+const DRAW_OPACITY = 1;
 
 /**
  * Draw ui class

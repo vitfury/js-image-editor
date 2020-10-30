@@ -6,7 +6,7 @@ import controls from './ui/template/controls';
 
 import Theme from './ui/theme/theme';
 import Shape from './ui/shape';
-import Crop from './ui/crop';
+// import Crop from './ui/crop';
 import Flip from './ui/flip';
 import Rotate from './ui/rotate';
 import Text from './ui/text';
@@ -19,7 +19,6 @@ import Locale from './ui/locale/locale';
 
 const SUB_UI_COMPONENT = {
     Shape,
-    Crop,
     Flip,
     Rotate,
     Text,
@@ -91,7 +90,6 @@ class Ui {
      */
     setUiDefaultSelectionStyle(option) {
         return snippet.extend({
-            applyCropSelectionStyle: true,
             applyGroupSelectionStyle: true,
             selectionStyle: {
                 cornerStyle: 'circle',
@@ -188,7 +186,7 @@ class Ui {
             },
             locale: {},
             menuIconPath: '',
-            menu: ['filter','mask', 'erase', 'draw', 'text', 'icon', 'crop', 'flip', 'rotate', 'shape'],
+            menu: ['filter','mask', 'erase', 'draw', 'text', 'icon', 'flip', 'rotate', 'shape'],
             initMenu: '',
             uiSize: {
                 width: '100%',

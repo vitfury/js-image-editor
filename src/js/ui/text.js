@@ -31,7 +31,10 @@ export default class Text extends Submenu {
             textAlignButton: this.selector('.tie-text-align-button'),
             fontSelect: this.selector('.tie-text-font-select'),
             textColorpicker: new Colorpicker(
-                this.selector('.tie-text-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics
+                this.selector('.tie-text-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics        
+            ),
+            textStrokepicker: new Colorpicker(
+                this.selector('.tie-text-outline-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics        
             ),
             textRange: new Range({
                 slider: this.selector('.tie-text-range'),
@@ -51,6 +54,7 @@ export default class Text extends Submenu {
     destroy() {
         this._removeEvent();
         this._els.textColorpicker.destroy();
+        this._els.textStrokepicker.destroy();
         this._els.textRange.destroy();
         this._els.outlineWidth.destroy();
         assignmentForDestroy(this);
@@ -77,6 +81,7 @@ export default class Text extends Submenu {
         this._els.fontSelect.addEventListener('change', setFontFamily);
         this._els.textRange.on('change', this._changeTextRnageHandler.bind(this));
         this._els.textColorpicker.on('change', this._changeColorHandler.bind(this));
+        this._els.textStrokepicker.on('change', this._changeStrokeHandler.bind(this))
         this._els.outlineWidth.on('change', this._changeTextOutlineTextHandler.bind(this));
     }
 
@@ -92,6 +97,7 @@ export default class Text extends Submenu {
         this._els.textRange.off();
         this._els.outlineWidth.off();
         this._els.textColorpicker.off();
+        this._els.textStrokepicker.off();
     }
 
     /**
@@ -112,6 +118,10 @@ export default class Text extends Submenu {
         this._els.textColorpicker.color = color;
     }
 
+    set stroke(color) {
+        this._els.textStrokepicker.color = color;
+    }
+
     /**
      * Get text color
      * @returns {string} - text color
@@ -120,6 +130,9 @@ export default class Text extends Submenu {
         return this._els.textColorpicker.color;
     }
 
+    get stroke() {
+        return this._els.textStrokepicker.color;
+    }
     /**
      * Get text size
      * @returns {string} - text size
@@ -179,9 +192,10 @@ export default class Text extends Submenu {
     }
 
     setTextStyleStateOnAction(textStyle = {}) {
-        const {fill, fontSize, strokeWidth, fontStyle, fontWeight, textDecoration, textAlign} = textStyle;
+        const {fill, fontSize, stroke, strokeWidth, fontStyle, fontWeight, textDecoration, textAlign} = textStyle;
         this.textColor = fill;
         this.fontSize = fontSize;
+        this.stroke = stroke;
         this.strokeWidth = strokeWidth;
         this.setEffactState('italic', fontStyle);
         this.setEffactState('bold', fontWeight);
@@ -277,6 +291,15 @@ export default class Text extends Submenu {
      * @param {string} color - change color string
      * @private
      */
+
+
+    _changeStrokeHandler(color) {
+        color = color || 'transparent';
+        this.actions.changeTextStyle({
+            'stroke': color
+        });
+    }
+
     _changeColorHandler(color) {
         color = color || 'transparent';
         this.actions.changeTextStyle({
