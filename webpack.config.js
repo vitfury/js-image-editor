@@ -26,8 +26,8 @@ module.exports = {
     output: {
         library: ['tui', 'ImageEditor'],
         libraryTarget: 'umd',
-        path: path.resolve('/Users/vitaliyomelchenko/Documents/projects/imagemagic-app/public', 'dist'),
-        publicPath: '/Users/vitaliyomelchenko/Documents/projects/imagemagic-app/public/dist',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist',
         filename: `${FILENAME}.js`
     },
     externals: [{

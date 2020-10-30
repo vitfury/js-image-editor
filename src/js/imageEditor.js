@@ -24,6 +24,7 @@ const {
     ADD_ERASE,
     DRAW_ERASE,
     ADD_OBJECT,
+    STICK_ERASER,
     TEXT_EDITING,
     TEXT_CHANGED,
     ICON_CREATE_RESIZE,
@@ -160,7 +161,7 @@ class ImageEditor {
             includeUI: false,
             usageStatistics: true
         }, options);
-
+        console.log(2222)
         this.mode = null;
 
         this.activeObjectId = null;
@@ -212,6 +213,7 @@ class ImageEditor {
             objectAdded: this._onObjectAdded.bind(this),
             createdPath: this._onCreatedPath,
             addText: this._onAddText.bind(this),
+            stickEraser: this._onStickEraser.bind(this),
             addErase: this._onAddErase.bind(this),
             drawErase: this._onDrawErase.bind(this),
             addObject: this._onAddObject.bind(this),
@@ -316,6 +318,7 @@ class ImageEditor {
             [ADD_ERASE]: this._handlers.addErase,
             [DRAW_ERASE]: this._handlers.drawErase,
             [ADD_OBJECT]: this._handlers.addObject,
+            [STICK_ERASER]: this._handlers.stickEraser,
             [TEXT_EDITING]: this._handlers.textEditing,
             [TEXT_CHANGED]: this._handlers.textChanged,
             [ICON_CREATE_RESIZE]: this._handlers.iconCreateResize,
@@ -426,6 +429,11 @@ class ImageEditor {
      */
     _pushAddObjectCommand(obj) {
         const command = commandFactory.create(commands.ADD_OBJECT, this._graphics, obj);
+        this._invoker.pushUndoStack(command);
+    }
+
+    _onStickEraser(obj) {
+        const command = commandFactory.create(commands.STICK_ERASER, this._graphics, obj);
         this._invoker.pushUndoStack(command);
     }
 
@@ -1082,6 +1090,12 @@ class ImageEditor {
         options = options || {};
 
         return this.execute(commands.ADD_TEXT, text, options);
+    }
+
+
+    stickEraser(eraserObj) {
+
+        return this.execute(commands.STICK_ERASER, eraserObj);
     }
 
     addErase(options) {
