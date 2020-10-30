@@ -113,7 +113,7 @@ export default {
                 ));
             },
             download: () => {
-                const dataURL = this.toDataURL();
+                const dataURL = this.toDataURL({ format: 'webp', quality: 0.7 });
                 let imageName = this.getImageName();
                 let blob, type, w;
 
@@ -260,7 +260,7 @@ export default {
     _maskAction() {
         return extend({
             loadImageFromURL: (imgUrl, file) => (
-                this.loadImageFromURL(this.toDataURL(), 'FilterImage').then(() => {           
+                this.loadImageFromURL(this.toDataURL(), 'FilterImage').then(() => {
                     this.addImageObject(imgUrl).then(() => {
                         URL.revokeObjectURL(file);
                     });
