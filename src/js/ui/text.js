@@ -103,16 +103,21 @@ export default class Text extends Submenu {
     /**
      * Returns the menu to its default state.
      */
+    changeStartMode() {
+        this.changeStandbyMode();
+        this.actions.modeChange('text');
+    }
+    
     changeStandbyMode() {
+        this.type = null;
         this.actions.stopDrawingMode();
+        this.actions.changeSelectableAll(true);
     }
 
     /**
      * Executed when the menu starts.
      */
-    changeStartMode() {
-        this.actions.modeChange('text');
-    }
+  
 
     set textColor(color) {
         this._els.textColorpicker.color = color;
