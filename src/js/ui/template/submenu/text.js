@@ -5,7 +5,7 @@
  * @returns {string}
  */
 export default ({locale, makeSvgIcon}) => (`
-    <ul style="color: white;">Font family</ul>
+    <ul style="color: white;">${locale.localize('Font family')}</ul>
     <select class="tie-text-font-select">
         <option value="Amatic">Amatic</option>
         <option value="GrenzeGotisch">Grenze gotisch</option>
@@ -64,7 +64,7 @@ export default ({locale, makeSvgIcon}) => (`
             <div></div>
         </li>
         <li>
-            <div class="tie-text-color" title="${locale.localize('Color')}"></div>
+            <div class="tie-text-color" title="${locale.localize('Text color')}"></div>
         </li>
         <li class="tui-image-editor-partition only-left-right">
             <div></div>
@@ -76,20 +76,20 @@ export default ({locale, makeSvgIcon}) => (`
         </li>
         
         <li class=" tui-image-editor-range-wrap">
-            <label class="range">${locale.localize('Stroke width')}</label>
+            <label class="range">${locale.localize('Stroke size')}</label>
             <div class="tie-text-outline-range text-outline-range-position"></div>
             <input class="tie-text-outline-range-value  tui-image-editor-range-value" value="0" />
         </li>
         <li>
-        <div class="tie-text-outline-color" title="${locale.localize('Color')}"></div>
+        <div class="tie-text-outline-color" title="${locale.localize('Stroke color')}"></div>
         </li>
         
     </ul>
-    <ul style="color: white;">Stroke form</ul>
+    <ul style="color: white;">${locale.localize('Stroke form')}</ul>
     <select class="tie-stroke-form-select">
-        <option value="soft">Soft</option>
-        <option value="chainsaw">Chainsaw</option>
-        <option value="pixelize">Pixelize</option>
-        <option value="fishbone">Fishbone</option>
+        <option value="soft">${locale.localize('Soft')}</option>
+        <option value="chainsaw">${locale.localize('Chainsaw')}</option>
+        <option value="pixelize">${locale.localize('Pixelize')}</option>
+        <option value="fishbone">${locale.localize('Fishbone')}</option>
     </select>
 `);
