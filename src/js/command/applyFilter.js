@@ -16,12 +16,12 @@ let chchedUndoDataForSilent = null;
 
 /**
  * Make undoData
- * @param {string} type - Filter type 
+ * @param {string} type - Filter type
  * @param {Object} prevfilterOption - prev Filter options
  * @param {Object} options - Filter options
  * @returns {object} - undo data
  */
-function makeUndoData(type, prevfilterOption, options) {
+function makeUndoData(type, prevfilterOption, options, image) {
     const undoData = {};
 
     if (type === 'mask') {
@@ -29,6 +29,7 @@ function makeUndoData(type, prevfilterOption, options) {
     }
 
     undoData.options = prevfilterOption;
+    undoData.image = image;
 
     return undoData;
 }
@@ -48,24 +49,17 @@ const command = {
     execute(graphics, type, options, isSilent) {
         const filterComp = graphics.getComponent(FILTER);
 
-        if (type === 'mask') {
-            const maskObj = graphics.getObject(options.maskObjId);
-
-            if (!(maskObj && maskObj.isType('image'))) {
-                return Promise.reject(rejectMessages.invalidParameters);
-            }
-
-            snippet.extend(options, {mask: maskObj});
-            graphics.remove(options.mask);
-        }
+        let image = graphics.getActiveObject();
         if (!this.isRedo) {
             const prevfilterOption = filterComp.getOptions(type);
-            const undoData = makeUndoData(type, prevfilterOption, options);
+            const undoData = makeUndoData(type, prevfilterOption, options, image);
 
             chchedUndoDataForSilent = this.setUndoData(undoData, chchedUndoDataForSilent, isSilent);
         }
-
-        return filterComp.add(type, options);
+        if(this.undoData.image) {
+            image = this.undoData.image;
+        }
+        return filterComp.add(type, options, image);
     },
     /**
      * @param {Graphics} graphics - Graphics instance
@@ -80,16 +74,16 @@ const command = {
             graphics.add(mask);
             graphics.setActiveObject(mask);
 
-            return filterComp.remove(type);
+            return filterComp.remove(type, this.undoData.image);
         }
 
         // options changed case
         if (this.undoData.options) {
-            return filterComp.add(type, this.undoData.options);
+            return filterComp.add(type, this.undoData.options, this.undoData.image);
         }
 
         // filter added case
-        return filterComp.remove(type);
+        return filterComp.remove(type, this.undoData.image);
     }
 };
 

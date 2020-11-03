@@ -72,18 +72,24 @@ class Mask extends Submenu {
 
         const [file] = event.target.files;
 
-        let removeBackground = this._els.removeBackgroundCheckbox.checked;
-        const imageProcessingAction = removeBackground ? 'removeBackground' : 'resize';
+        if (file) {
+            imgUrl = URL.createObjectURL(file);
+            this.actions.loadImageFromURL(imgUrl, file);
+            return;
+        }
 
         if (file) {
-            $('.image-loader-overlay').show();
+            $('#editor-progressBarDiv').show();
+
             var actions = this.actions;
             var reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function () {
+                //HERE
                 var imageBase64 = reader.result;
                 imageBase64 = imageBase64.split('base64,')[1];
                 var body = {
+
                     dimensions: {
                         width: 512,
                         height: 512
@@ -92,17 +98,22 @@ class Mask extends Submenu {
                 }
 
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/api/image/'+imageProcessingAction, false);
+                xhr.open('POST', '/api/image/removeBackground', false);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify(body));
                 if (xhr.status === 200) {
-                    var tmpImgResponse = JSON.parse(xhr.responseText)
-                    var tmpImgBase64 = tmpImgResponse.image;
-                    imgUrl = 'data:image/png;base64,' + tmpImgBase64;
-                    actions.loadImageFromURL(imgUrl, file);
+                    console.log(xhr.responseText);
                 }
-                $('.image-loader-overlay').hide();
+                var tmpImgResponse = JSON.parse(xhr.responseText)
+                var tmpImgBase64 = tmpImgResponse.image;
+                imgUrl = 'data:image/png;base64,' + tmpImgBase64;
 
+                // var tempResponse = xhr.responseText;
+                // var responseImg = tempResponse.split(',')[1];
+                $('#editor-progressBarDiv').hide();
+
+                // imgUrl = 'data:image/'+';base64,' + responseImg;
+                actions.loadImageFromURL(imgUrl, file);
             };
             reader.onerror = function (error) {
                 alert('Error: ', error);

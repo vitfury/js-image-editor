@@ -305,7 +305,6 @@ class Text extends Component {
      */
     setStyle(activeObj, styleObj) {
         return new Promise(resolve => {
-            console.log(styleObj);
             snippet.forEach(styleObj, (val, key) => {
                 if (activeObj[key] === val && key !== 'fontSize' && key !== 'strokeWidth' && key !== 'strokeType' && key !== 'fontFamily') {
                     styleObj[key] = resetStyles[key] || '';
@@ -326,7 +325,6 @@ class Text extends Component {
                     oswald: 'Oswald',
                     SyneTactile: 'Syne Tactile'
                 }
-                console.log(fontFamilyMap[styleObj.fontFamily]);
                 styleObj.fontFamily = fontFamilyMap[styleObj.fontFamily];
             }
 

@@ -72,7 +72,6 @@ class Filter extends Submenu {
             usageStatistics
         });
 
-        this.selectBoxShow = false;
 
         this.checkedMap = {};
         this._makeControlElement();
@@ -291,7 +290,7 @@ class Filter extends Submenu {
      * @private
      */
     _makeControlElement() {
-        this._els = {     
+        this._els = {
             brightnessRange: new Range(
                 {slider: this.selector('.tie-brightness-range')},
                 FILTER_RANGE.brightnessRange

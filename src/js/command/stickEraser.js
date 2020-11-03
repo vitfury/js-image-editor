@@ -18,17 +18,15 @@ const command = {
      */
     execute(graphics, eraseObject) {
         const canvas = graphics._canvas;
-        if(Object.keys(this.undoData).length) {
+        if(this.isRedo) {
             canvas.remove(this.undoData.oldObject);
             canvas.add(this.undoData.newObject);
             canvas.renderAll();
             return Promise.resolve();
         }
         return new Promise((resolve, reject) => {
-            const editorGraphics = graphics;
             const objects = canvas._objects;
-            const objectKeys = Object.keys(objects);
-            if (!objectKeys.length) {
+            if (!Object.keys(objects).length) {
                 // no any objects. Delete eraser
                 return {};
             }
