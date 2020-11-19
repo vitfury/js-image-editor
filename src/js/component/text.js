@@ -121,6 +121,9 @@ class Text extends Component {
             if (obj.type === 'i-text') {
                 this.adjustOriginPosition(obj, 'start');
             }
+            if(obj.get('type') !== 'i-text') {
+                obj.selectable = false;
+            }
         });
 
         this.setCanvasRatio();
@@ -142,6 +145,9 @@ class Text extends Component {
                 } else {
                     this.adjustOriginPosition(obj, 'end');
                 }
+            }
+            if(obj.get('type') !== 'i-text') {
+                obj.selectable = true;
             }
         });
 
@@ -213,28 +219,7 @@ class Text extends Component {
             if(typeof styles.strokeType !== 'undefined') {
                 styles.strokeType = this.getStrokeStyles(styles.strokeType);
             }
-           
 
-            // switch (styles.strokeType) {
-            //     case 'fishbone':
-            //         styles.strokeLineCap = 'butt';
-            //         styles.strokeDashArray = [2,3];
-            //         break;
-            //     case 'chainsaw':
-            //         styles.strokeLineCap = 'square';
-            //         styles.strokeDashArray = [1,5];
-            //         break;
-            //     case 'pixelize':
-            //         styles.strokeLineCap = 'square';
-            //         styles.strokeDashArray = [0,10];
-            //         break;
-            //     case 'soft':
-            //         styles.strokeLineCap = "round";
-            //         styles.strokeDashArray = [0,0];
-            //         break;
-            // }
-
-            // styles.fontFamily = fontFamilyMap[options.styles.fontFamily];
             styles.stroke = '#fff';
             styles.strokeWidth = 30;
             styles.fontSize = 40;
@@ -574,10 +559,6 @@ class Text extends Component {
     _onFabricMouseDown(fEvent) {
         const obj = fEvent.target;
 
-        if (obj && !obj.isType('text')) {
-            return;
-        }
-
         if (this.isPrevEditing) {
             this.isPrevEditing = false;
 
@@ -597,7 +578,7 @@ class Text extends Component {
         const e = fEvent.e || {};
         const originPointer = this.getCanvas().getPointer(e);
 
-        if (!obj) {
+        if (!obj || (obj && !obj.get('type') !== 'i-text')) {
             this.fire(events.ADD_TEXT, {
                 originPosition: {
                     x: originPointer.x,

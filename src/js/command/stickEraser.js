@@ -33,7 +33,7 @@ const command = {
             var command = this;
 
             // Stick eraser to the latest uploaded image
-            let reversedObjects = objectKeys.reverse();
+            let reversedObjects = Object.keys(objects).reverse();
             reversedObjects.forEach(function(objectKey) {
                 const currentObject = objects[objectKey];
                 // Walk only through images
