@@ -73,6 +73,7 @@ const command = {
 
             canvas.remove(eraseObject);
             canvas.renderAll();
+            resolve();
             // no occcurances found
             // delete eraseObject
             // return empty undodata;
@@ -85,7 +86,7 @@ const command = {
      */
     undo(graphics, undoData) {
         var undoData = this.undoData;
-        if (graphics.contains(undoData.newObject)) {
+        if (undoData && graphics.contains(undoData.newObject)) {
             graphics.remove(undoData.newObject);
             graphics.add(undoData.oldObject);
         }

@@ -72,11 +72,11 @@ class Mask extends Submenu {
 
         const [file] = event.target.files;
 
-        if (file) {
-            imgUrl = URL.createObjectURL(file);
-            this.actions.loadImageFromURL(imgUrl, file);
-            return;
-        }
+        // if (file) {
+        //     imgUrl = URL.createObjectURL(file);
+        //     this.actions.loadImageFromURL(imgUrl, file);
+        //     return;
+        // }
 
         if (file) {
             $('#editor-progressBarDiv').show();

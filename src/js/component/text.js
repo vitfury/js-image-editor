@@ -122,7 +122,11 @@ class Text extends Component {
                 this.adjustOriginPosition(obj, 'start');
             }
             if(obj.get('type') !== 'i-text') {
-                obj.selectable = false;
+                obj.set({
+                    hoverCursor: 'text',
+                    defaultCursor: 'text',
+                    selectable: false
+                })
             }
         });
 
@@ -198,6 +202,7 @@ class Text extends Component {
      */
     add(text, options) {
         return new Promise(resolve => {
+            console.log('add text');
             const canvas = this.getCanvas();
             let newText = null;
             let selectionStyle = fObjectOptions.SELECTION_STYLE;
@@ -560,12 +565,15 @@ class Text extends Component {
         const obj = fEvent.target;
 
         if (this.isPrevEditing) {
+            console.log('isPrevEditing');
             this.isPrevEditing = false;
 
             return;
         }
 
-        this._fireAddText(fEvent);
+        if(!obj) {
+            this._fireAddText(fEvent);
+        }
     }
 
     /**
