@@ -7,13 +7,13 @@
 export default ({locale, makeSvgIcon}) => (`
     <ul style="color: white;">${locale.localize('Font family')}</ul>
     <select class="tie-text-font-select">
-        <option value="Amatic">Amatic</option>
-        <option value="GrenzeGotisch">Grenze gotisch</option>
-        <option value="DancingScript">Dancing Script</option>
-        <option value="RobotoSlab">Roboto Slab</option>
-        <option value="oswald">Oswald</option>
-        <option value="SyneTactile">Syne Tactile</option>
-        <option value="SyneMono">Syne mono</option>
+        <option value="Roboto">Roboto</option>
+        <option value="Amatic">Amatic SC</option>
+        <option value="Caveat">Caveat</option>
+        <option value="MarckScript">MarckScript</option>
+        <option value="Pacifico">Pacifico</option>
+        <option value="Play">Play</option>
+        <option value="PressStart2P">PressStart2P</option>
     </select>
         
     <ul class="tui-image-editor-submenu-item">

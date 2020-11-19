@@ -6,3 +6,16 @@
 .text-outline-range-position {
     width: 115px !important;
 }
+
+.invisible-gotish {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    font-family: 'Grenze Gotisch', bold;
+}
+.invisible-asmatic {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    font-family: 'Amatic SC', bold;
+}

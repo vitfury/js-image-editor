@@ -206,40 +206,35 @@ class Text extends Component {
                 options.autofocus = true;
             }
 
-
-           let fontFamilyMap = {
-                Amatic: 'Amatic SC',
-                GrenzeGotisch: 'Grenze Gotisch',
-                DancingScript: 'Dancing Script',
-                RobotoSlab: 'Roboto Slab',
-                SyneMono: 'Syne Mono',
-                oswald: 'Oswald',
-                SyneTactile: 'Syne Tactile',
-                // NotoSansJP: 'Noto Sans JP',
-                // yanoneKaffeesatz: 'Yanone Kaffeesatz',
-                // Caveat: 'Caveat'
+            if(typeof styles.fontFamily !== 'undefined') {
+                styles.fontFamily = this.getFontFullName(styles.fontFamily);
             }
 
-            switch (styles.strokeType) {
-                case 'fishbone':
-                    styles.strokeLineCap = 'butt';
-                    styles.strokeDashArray = [2,3];
-                    break;
-                case 'chainsaw':
-                    styles.strokeLineCap = 'square';
-                    styles.strokeDashArray = [1,5];
-                    break;
-                case 'pixelize':
-                    styles.strokeLineCap = 'square';
-                    styles.strokeDashArray = [0,10];
-                    break;
-                case 'soft':
-                    styles.strokeLineCap = "round";
-                    styles.strokeDashArray = [0,0];
-                    break;
+            if(typeof styles.strokeType !== 'undefined') {
+                styles.strokeType = this.getStrokeStyles(styles.strokeType);
             }
+           
 
-            styles.fontFamily = fontFamilyMap[options.styles.fontFamily];
+            // switch (styles.strokeType) {
+            //     case 'fishbone':
+            //         styles.strokeLineCap = 'butt';
+            //         styles.strokeDashArray = [2,3];
+            //         break;
+            //     case 'chainsaw':
+            //         styles.strokeLineCap = 'square';
+            //         styles.strokeDashArray = [1,5];
+            //         break;
+            //     case 'pixelize':
+            //         styles.strokeLineCap = 'square';
+            //         styles.strokeDashArray = [0,10];
+            //         break;
+            //     case 'soft':
+            //         styles.strokeLineCap = "round";
+            //         styles.strokeDashArray = [0,0];
+            //         break;
+            // }
+
+            // styles.fontFamily = fontFamilyMap[options.styles.fontFamily];
             styles.stroke = '#fff';
             styles.strokeWidth = 30;
             styles.fontSize = 40;
@@ -305,7 +300,6 @@ class Text extends Component {
      */
     setStyle(activeObj, styleObj) {
         return new Promise(resolve => {
-            console.log(styleObj);
             snippet.forEach(styleObj, (val, key) => {
                 if (activeObj[key] === val && key !== 'fontSize' && key !== 'strokeWidth' && key !== 'strokeType' && key !== 'fontFamily') {
                     styleObj[key] = resetStyles[key] || '';
@@ -317,42 +311,59 @@ class Text extends Component {
             }
 
             if(typeof styleObj.fontFamily !== 'undefined') {
-                let fontFamilyMap = {
-                    Amatic: 'Amatic SC',
-                    GrenzeGotisch: 'Grenze Gotisch',
-                    DancingScript: 'Dancing Script',
-                    RobotoSlab: 'Roboto Slab',
-                    SyneMono: 'Syne Mono',
-                    oswald: 'Oswald',
-                    SyneTactile: 'Syne Tactile'
-                }
-                console.log(fontFamilyMap[styleObj.fontFamily]);
-                styleObj.fontFamily = fontFamilyMap[styleObj.fontFamily];
+                styleObj.fontFamily = this.getFontFullName(styleObj.fontFamily);
             }
 
-            switch (styleObj.strokeType) {
-                case 'fishbone':
-                    styleObj.strokeLineCap = 'butt';
-                    styleObj.strokeDashArray = [2,3];
-                    break;
-                case 'chainsaw':
-                    styleObj.strokeLineCap = 'square';
-                    styleObj.strokeDashArray = [1,5];
-                    break;
-                case 'pixelize':
-                    styleObj.strokeLineCap = 'square';
-                    styleObj.strokeDashArray = [0,10];
-                    break;
-                case 'soft':
-                    styleObj.strokeLineCap = "round";
-                    styleObj.strokeDashArray = [0,0];
-                    break;
+            if(typeof styleObj.strokeType !== 'undefined') {
+                styleObj = this.getStrokeStyles(styleObj.strokeType);
             }
 
             activeObj.set(styleObj);
             this.getCanvas().renderAll();
             resolve();
         });
+    }
+
+    getFontFullName(fontCode) {
+        let fontFamilyMap = {
+            Amatic: 'Amatic SC',
+            Caveat: 'Caveat',
+            MarckScript: 'Marck Script',
+            Pacifico: 'Pacifico',
+            Play: 'Play',
+            PressStart2P: 'Press Start 2P',
+            Roboto: 'Roboto'
+        }
+
+        if(fontFamilyMap[fontCode] === 'undefined') {
+            return 'Roboto';
+        }
+
+        return fontFamilyMap[fontCode];
+    }
+
+    getStrokeStyles(strokeType) {
+        var strokeStyle = {};
+        switch (strokeType) {
+            case 'fishbone':
+                strokeStyle.strokeLineCap = 'butt';
+                strokeStyle.strokeDashArray = [2,3];
+                break;
+            case 'chainsaw':
+                strokeStyle.strokeLineCap = 'square';
+                strokeStyle.strokeDashArray = [1,5];
+                break;
+            case 'pixelize':
+                strokeStyle.strokeLineCap = 'square';
+                strokeStyle.strokeDashArray = [0,10];
+                break;
+            case 'soft':
+                strokeStyle.strokeLineCap = "round";
+                strokeStyle.strokeDashArray = [0,0];
+                break;
+        }
+
+        return strokeStyle;
     }
 
     /**

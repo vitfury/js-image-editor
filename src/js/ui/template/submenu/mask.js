@@ -20,8 +20,7 @@ export default ({locale, makeSvgIcon}) => (`
         </li>
         <li>
             <div class="tui-image-editor-button remove-background">
-                <input type="checkbox" class="remove-background-checkbox" checked="true">
-                <label>${locale.localize('Remove Background')}</label>
+                <label><input type="checkbox" class="remove-background-checkbox" checked="true"> ${locale.localize('Remove Background')}</label>
             </div>
         </li>
     </ul>
