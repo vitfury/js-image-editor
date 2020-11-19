@@ -161,7 +161,6 @@ class ImageEditor {
             includeUI: false,
             usageStatistics: true
         }, options);
-        console.log(2222)
         this.mode = null;
 
         this.activeObjectId = null;

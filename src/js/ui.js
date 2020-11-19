@@ -200,7 +200,7 @@ class Ui {
      * Set ui container size
      * @param {Object} uiSize - ui dimension
      *   @param {string} uiSize.width - css width property
-     *   @param {string} uiSize.height - css height property 
+     *   @param {string} uiSize.height - css height property
      * @private
      */
     _setUiSize(uiSize = this.options.uiSize) {
@@ -280,7 +280,7 @@ class Ui {
             'load': this._selectedElement.querySelectorAll('.tui-image-editor-load-btn')
         };
 
-        
+
     }
 
     /**
@@ -565,7 +565,7 @@ class Ui {
         if (this.submenu) {
             this._buttonElements[this.submenu].classList.remove('active');
             this._mainElement.classList.remove(`tui-image-editor-menu-${this.submenu}`);
-            if (discardSelection) {
+            if (discardSelection && menuName !== 'filter') {
                 this._actions.main.discardSelection();
             }
             this._actions.main.changeSelectableAll(true);

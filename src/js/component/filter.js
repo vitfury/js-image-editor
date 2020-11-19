@@ -36,9 +36,9 @@ class Filter extends Component {
      * @param {Object} [options] - Options of filter
      * @returns {Promise}
      */
-    add(type, options) {
+    add(type, options, image) {
         return new Promise((resolve, reject) => {
-            const sourceImg = this._getSourceImage();
+            const sourceImg = image;
             const canvas = this.getCanvas();
             let imgFilter = this._getFilter(sourceImg, type);
             if (!imgFilter) {
@@ -67,9 +67,9 @@ class Filter extends Component {
      * @param {string} type - Filter type
      * @returns {Promise}
      */
-    remove(type) {
+    remove(type, image) {
         return new Promise((resolve, reject) => {
-            const sourceImg = this._getSourceImage();
+            const sourceImg = image;
             const canvas = this.getCanvas();
             const options = this.getOptions(type);
 
@@ -153,7 +153,7 @@ class Filter extends Component {
      * @private
      */
     _getSourceImage() {
-        return this.getCanvasImage();
+        return this.graphics.getActiveObject()
     }
 
     /**
