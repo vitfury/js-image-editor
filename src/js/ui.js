@@ -8,7 +8,6 @@ import Theme from './ui/theme/theme';
 import Shape from './ui/shape';
 // import Crop from './ui/crop';
 import Flip from './ui/flip';
-import Rotate from './ui/rotate';
 import Text from './ui/text';
 import Mask from './ui/mask';
 import Icon from './ui/icon';
@@ -20,7 +19,6 @@ import Locale from './ui/locale/locale';
 const SUB_UI_COMPONENT = {
     Shape,
     Flip,
-    Rotate,
     Text,
     Mask,
     Icon,
@@ -186,7 +184,7 @@ class Ui {
             },
             locale: {},
             menuIconPath: '',
-            menu: ['filter','mask', 'erase', 'draw', 'text', 'icon', 'flip', 'rotate', 'shape'],
+            menu: ['filter','mask', 'erase', 'draw', 'text', 'icon', 'flip', 'shape'],
             initMenu: '',
             uiSize: {
                 width: '100%',
@@ -291,7 +289,7 @@ class Ui {
     _makeHelpMenuWithPartition() {
         const helpMenuWithPartition = [...HELP_MENUS];
         helpMenuWithPartition.splice(0, 0, '');
-        helpMenuWithPartition.splice(4, 0, '');
+        helpMenuWithPartition.splice(3, 0, '');
         return helpMenuWithPartition;
     }
 

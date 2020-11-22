@@ -78,6 +78,7 @@
     "test:ne": "KARMA_SERVER=ne karma start",
     "test:types": "tsc --project test/types",
     "bundle": "webpack && webpack -p && npm run bundle:svg && node tsBannerGenerator.js",
+    "local-deploy": "webpack && webpack -p && npm run bundle:svg && cp -r /Users/vitaliyomelchenko/Documents/projects/js-image-editor/dist/tui-image-editor.min.js /Users/vitaliyomelchenko/Documents/projects/imagemagic-app/public/dist/",
     "bundle:svg": "node makesvg.js",
     "serve": "webpack-dev-server",
     "doc:dev": "tuidoc --dev",

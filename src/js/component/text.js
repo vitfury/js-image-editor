@@ -202,7 +202,6 @@ class Text extends Component {
      */
     add(text, options) {
         return new Promise(resolve => {
-            console.log('add text');
             const canvas = this.getCanvas();
             let newText = null;
             let selectionStyle = fObjectOptions.SELECTION_STYLE;
@@ -565,15 +564,12 @@ class Text extends Component {
         const obj = fEvent.target;
 
         if (this.isPrevEditing) {
-            console.log('isPrevEditing');
             this.isPrevEditing = false;
 
             return;
         }
 
-        if(!obj) {
-            this._fireAddText(fEvent);
-        }
+        this._fireAddText(fEvent);
     }
 
     /**
@@ -585,8 +581,7 @@ class Text extends Component {
         const obj = fEvent.target;
         const e = fEvent.e || {};
         const originPointer = this.getCanvas().getPointer(e);
-
-        if (!obj || (obj && !obj.get('type') !== 'i-text')) {
+        if (!obj || (obj && obj.get('type') !== 'i-text')) {
             this.fire(events.ADD_TEXT, {
                 originPosition: {
                     x: originPointer.x,

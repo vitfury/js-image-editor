@@ -417,10 +417,8 @@ export default {
             undoStackChanged: length => {
                 if (length) {
                     this.ui.changeHelpButtonEnabled('undo', true);
-                    this.ui.changeHelpButtonEnabled('reset', true);
                 } else {
                     this.ui.changeHelpButtonEnabled('undo', false);
-                    this.ui.changeHelpButtonEnabled('reset', false);
                 }
                 this.ui.resizeEditor();
             },
@@ -471,6 +469,14 @@ export default {
                     }
                     this.ui.icon.setIconPickerColor(obj.fill);
                 }
+
+                if (typeof Editor !== 'undefined' && !Editor.Sticker.id) {
+                    Editor.Actions.StartEditingSession();
+                }
+
+                if (typeof Editor !== 'undefined' && Editor.Sticker.id) {
+                    Editor.Actions.HandleEditorChanged();
+                }
             },
             /* eslint-enable complexity */
             addText: pos => {
@@ -489,6 +495,9 @@ export default {
                 }).then(() => {
                     this.changeCursor('default');
                 });
+                if (typeof Editor !== 'undefined' && Editor.Sticker.id) {
+                    Editor.Actions.HandleEditorChanged();
+                }
             },
             addErase: pos => {
                 const {
@@ -499,6 +508,9 @@ export default {
                     position: pos.originPosition,
                     width: width
                 });
+                if (typeof Editor !== 'undefined' && Editor.Sticker.id) {
+                    Editor.Actions.HandleEditorChanged();
+                }
             },
             addObjectAfter: obj => {
                 if (['rect', 'circle', 'triangle'].indexOf(obj.type) > -1) {
@@ -527,6 +539,9 @@ export default {
                     this.changeCursor('text');
                 } else if (this.ui.submenu !== 'draw' && this.ui.submenu !== 'crop') {
                     this.stopDrawingMode();
+                }
+                if (typeof Editor !== 'undefined' && Editor.Sticker.id) {
+                    Editor.Actions.HandleEditorChanged();
                 }
             }
         });
