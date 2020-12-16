@@ -13,10 +13,44 @@ const command = {
     /**
      * Add an object
      * @param {Graphics} graphics - Graphics instance
-     * @param {Object} eraseObject - Fabric object
      * @returns {Promise}
      */
-    execute(graphics, eraseObject) {
+    execute(graphics) {
+
+        var eraserElements = [];
+        graphics._canvas._objects.forEach(function(item, key){
+            if(item.globalCompositeOperation === 'destination-out') {
+                eraserElements.push(item);
+            }
+        });
+        var eraserGroup = new fabric.Group(eraserElements);
+
+        // imageEditor.addObject(eraserGroup);
+        graphics._canvas.add(eraserGroup);
+        graphics._canvas.renderAll();
+
+        //Remove erase elements from undo stack
+        var undoStack = imageEditor._invoker._undoStack;
+        if(!undoStack) {
+            resolve();
+            return;
+        }
+        undoStack.forEach(function(item, key){
+            if(item.args[1] && item.args[1].globalCompositeOperation) {
+                var elementPosition = undoStack.indexOf(item);
+                imageEditor._graphics._canvas.remove(item);
+                undoStack.splice(elementPosition, 1);
+            }
+        });
+
+        //Remove elements from canvas
+        imageEditor._graphics._canvas.getObjects().forEach(function(item){
+            if(item.globalCompositeOperation === 'destination-out') {
+                imageEditor._graphics._canvas.remove(item);
+            }
+        });
+
+
         const canvas = graphics._canvas;
         if(this.isRedo) {
             canvas.remove(this.undoData.oldObject);
@@ -37,8 +71,8 @@ const command = {
             reversedObjects.forEach(function(objectKey) {
                 const currentObject = objects[objectKey];
                 // Walk only through images
-                if(currentObject.get('type') === 'image' && currentObject.intersectsWithObject(eraseObject)) {
-                    var imageWithEraser = new fabric.Group([currentObject, eraseObject]);
+                if(currentObject.get('type') === 'image' && currentObject.intersectsWithObject(eraserGroup)) {
+                    var imageWithEraser = new fabric.Group([currentObject, eraserGroup]);
 
                     const resultPositionX = imageWithEraser.left;
                     const resultPositionY = imageWithEraser.top;
@@ -49,16 +83,9 @@ const command = {
                             left: resultPositionX,
                             top: resultPositionY,
                             crossOrigin: 'Anonymous',
-                            borderColor: "#fff",
-                            cornerColor: "#fff",
-                            cornerSize: 16,
-                            cornerStrokeColor: "#fff",
-                            cornerStyle: "circle",
-                            lineWidth: 3,
-                            transparentCorners: false
                         });
                         canvas.remove(currentObject);
-                        canvas.remove(eraseObject);
+                        canvas.remove(eraserGroup);
                         canvas.add(newObject);
                         canvas.renderAll();
                         // return undo data
@@ -71,11 +98,11 @@ const command = {
                 }
             });
 
-            canvas.remove(eraseObject);
+            canvas.remove(eraserGroup);
             canvas.renderAll();
             resolve();
             // no occcurances found
-            // delete eraseObject
+            // delete eraserGroup
             // return empty undodata;
         });
     },

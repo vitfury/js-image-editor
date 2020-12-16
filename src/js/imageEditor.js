@@ -1092,9 +1092,8 @@ class ImageEditor {
     }
 
 
-    stickEraser(eraserObj) {
-
-        return this.execute(commands.STICK_ERASER, eraserObj);
+    stickEraser() {
+        return this.execute(commands.STICK_ERASER);
     }
 
     addErase(options) {

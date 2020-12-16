@@ -1,6 +1,7 @@
 import {extend} from 'tui-code-snippet';
 import {isSupportFileApi, base64ToBlob, toInteger} from './util';
 import Imagetracer from './helper/imagetracer';
+import ImageEditor from './imageEditor';
 
 export default {
 
@@ -260,10 +261,9 @@ export default {
     _maskAction() {
         return extend({
             loadImageFromURL: (imgUrl, file) => (
-                this.loadImageFromURL(this.toDataURL(), 'FilterImage').then(() => {
-                    this.addImageObject(imgUrl).then(() => {
-                        URL.revokeObjectURL(file);
-                    });
+                this.addImageObject(imgUrl).then(() => {
+                    URL.revokeObjectURL(file);
+                    imageEditor._graphics.getCanvas().renderAll();
                 })
             ),
             applyFilter: () => {

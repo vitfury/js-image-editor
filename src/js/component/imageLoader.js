@@ -49,7 +49,7 @@ class ImageLoader extends Component {
                 resolve();
             });
         } else {
-           
+
             promise = this._setBackgroundImage(img).then(oImage => {
                 this.setCanvasImage(imageName, oImage);
                 this.adjustCanvasDimension();

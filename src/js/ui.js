@@ -90,13 +90,13 @@ class Ui {
         return snippet.extend({
             applyGroupSelectionStyle: true,
             selectionStyle: {
-                cornerStyle: 'circle',
-                cornerSize: 16,
-                cornerColor: '#fff',
-                cornerStrokeColor: '#fff',
+                cornerStyle: 'square',
+                cornerSize: 13,
+                cornerColor: '#2e3f52',
+                cornerStrokeColor: '#627994',
                 transparentCorners: false,
                 lineWidth: 2,
-                borderColor: '#fff'
+                borderColor: '#627994'
             }
         }, option);
     }

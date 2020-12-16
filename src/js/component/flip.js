@@ -24,7 +24,7 @@ class Flip extends Component {
      * @returns {{flipX: Boolean, flipY: Boolean}}
      */
     getCurrentSetting() {
-        const canvasImage = this.getCanvasImage();
+        const canvasImage = imageEditor._graphics.getObjects()[0];
 
         return {
             flipX: canvasImage.flipX,
@@ -90,7 +90,6 @@ class Flip extends Component {
                 obj.set({
                     angle: parseFloat(obj.angle * -1), // parseFloat for -0 to 0
                     flipX: !obj.flipX,
-                    left: canvas.width - obj.left
                 }).setCoords();
             });
         }
@@ -99,7 +98,6 @@ class Flip extends Component {
                 obj.set({
                     angle: parseFloat(obj.angle * -1), // parseFloat for -0 to 0
                     flipY: !obj.flipY,
-                    top: canvas.height - obj.top
                 }).setCoords();
             });
         }

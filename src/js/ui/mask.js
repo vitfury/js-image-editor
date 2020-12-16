@@ -100,7 +100,6 @@ class Mask extends Submenu {
             var successCallback = function(response) {
                 imgUrl = 'data:image/png;base64,' + response.image;
                 actions.loadImageFromURL(imgUrl, file);
-                canvas.renderAll();
                 if(typeof Editor !== 'undefined') {
                     Editor.UI.HideModalLoader();
                     Editor.Instance._graphics.getCanvas().renderAll()
